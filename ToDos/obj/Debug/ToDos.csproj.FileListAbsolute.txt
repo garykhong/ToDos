@@ -79,3 +79,4 @@ C:\temp\Breakable Toys\ToDos\ToDos\bin\Microsoft.Owin.Security.Twitter.xml
 C:\temp\Breakable Toys\ToDos\ToDos\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\temp\Breakable Toys\ToDos\ToDos\obj\Debug\ToDos.dll
 C:\temp\Breakable Toys\ToDos\ToDos\obj\Debug\ToDos.pdb
+C:\temp\Breakable Toys\ToDos\ToDos\obj\Debug\ToDos.csprojResolveAssemblyReference.cache

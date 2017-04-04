@@ -88,6 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\FakeDbSet.cs" />
     <Compile Include="Controllers\FakeToDoDBContext.cs" />
     <Compile Include="Controllers\ToDoControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
