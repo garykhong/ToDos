@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ToDos.Models.ToDo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@Html.ActionLink("Create New", "Create")
+
+@using (Html.BeginForm("Index", "ToDo", FormMethod.Get))
+{
+    <p>
+        What to do: @Html.TextBox("whatToDo") <br />
+        <input type="submit" value="Filter" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WhatToDo)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WhatToDo)
+            </td>
+        </tr>
+    }
+</table>
+

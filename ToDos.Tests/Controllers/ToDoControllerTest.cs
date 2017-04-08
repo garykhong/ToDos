@@ -7,6 +7,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ToDos;
 using ToDos.Controllers;
 using ToDos.Models;
+using System.Data.Entity;
+using System.Collections.ObjectModel;
 
 namespace ToDos.Tests.Controllers
 {
@@ -17,18 +19,34 @@ namespace ToDos.Tests.Controllers
         private ViewResult toDoDetailsResult;
         private int toDoID;
         private string expectedWhatToDo;
+        private ToDoController controller;
+        private ViewResult toDoIndexResult;
+
+        [TestInitialize]
+        public void SetupDependencies()
+        {
+            controller = new ToDoController();
+            SetFakeToDoDBContext();
+        }
 
         [TestMethod]
         public void Index_ViewNameIsIndex()
         {
-            // Arrange
-            ToDoController controller = new ToDoController();
+            SetToDoIndexResult();
+            Assert.AreEqual("Index", toDoIndexResult.ViewName);
+        }
 
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
+        [TestMethod]
+        public void Index_WithNoFilterAllToDosAreBoundToModel()
+        {
+            SetToDoIndexResult();
+            Assert.AreEqual(fakeToDoDBContext.FakeToDos.Local.Count(),
+                ((ObservableCollection<ToDo>)toDoIndexResult.Model).Count());
+        }
 
-            // Assert
-            Assert.AreEqual("Index", result.ViewName);
+        private void SetToDoIndexResult()
+        {
+            toDoIndexResult = controller.Index() as ViewResult;
         }
         
         [TestMethod]
@@ -49,7 +67,6 @@ namespace ToDos.Tests.Controllers
 
         private void TestToDoDetailsResult()
         {
-            SetFakeToDoDBContext();
             SetToDoControllerDetailsResult();
             AssertToDoDetailsResult();
         }
@@ -63,7 +80,6 @@ namespace ToDos.Tests.Controllers
 
         private void SetToDoControllerDetailsResult()
         {
-            ToDoController controller = new ToDoController();
             toDoDetailsResult = controller.Details(toDoID) as ViewResult;
         }
 

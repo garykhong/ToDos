@@ -30,7 +30,7 @@ namespace ToDos.Tests.Controllers
         {
             get
             {
-                throw new NotImplementedException();
+                return Expression.Constant(ToDos.AsQueryable());
             }
         }
 

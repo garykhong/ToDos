@@ -9,13 +9,13 @@ namespace ToDos.Controllers
     {
         public ViewResult Index()
         {
-            return View("Index");
+            ToDoDBContextFactory.Create().ToDos.Add(new ToDo { ID = 1, WhatToDo = "Buy Groceries" });
+            return View("Index", ToDoDBContextFactory.Create().ToDos.Local);
         }
 
         public ViewResult Details(int id)
-        {
-            ToDoDBContextFactory.Create().ToDos.Add(new ToDo { ID = 1, WhatToDo = "Buy Groceries" });
-            Models.ToDo toDo = ToDoDBContextFactory.Create().
+        {            
+            ToDo toDo = ToDoDBContextFactory.Create().
                                  ToDos.Local.Where(td => td.ID == id).First();
             return View("Details", toDo);
         }
