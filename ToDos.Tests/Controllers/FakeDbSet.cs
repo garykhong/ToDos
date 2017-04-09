@@ -52,7 +52,7 @@ namespace ToDos.Tests.Controllers
         {
             get
             {
-                return null;
+                return ToDos.AsQueryable().Provider;
             }
         }
 
