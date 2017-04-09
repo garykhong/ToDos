@@ -41,7 +41,7 @@ namespace ToDos.Tests.Controllers
         {
             SetToDoIndexResult();
             Assert.AreEqual(fakeToDoDBContext.FakeToDos.Local.Count(),
-                ((ObservableCollection<ToDo>)toDoIndexResult.Model).Count());
+                ((IDbSet<ToDo>)toDoIndexResult.Model).Count());
         }
 
         private void SetToDoIndexResult()
@@ -89,6 +89,13 @@ namespace ToDos.Tests.Controllers
             ToDo toDo = (ToDo)toDoDetailsResult.ViewData.Model;
             Assert.AreEqual(expectedWhatToDo, toDo.WhatToDo);
             Assert.AreEqual("Details", toDoDetailsResult.ViewName);
+        }
+
+        [TestMethod]
+        public void Create_ViewNameIsCreate()
+        {
+            ViewResult toDoCreateResult = controller.Create() as ViewResult;
+            Assert.AreEqual(toDoCreateResult.ViewName, "Create");           
         }
     }
 }

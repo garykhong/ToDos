@@ -9,7 +9,7 @@ namespace ToDos.Controllers
     {
         public ViewResult Index()
         {
-            return View("Index", ToDoDBContextFactory.Create().ToDos.Local);
+            return View("Index", ToDoDBContextFactory.Create().ToDos);
         }
 
         public ViewResult Details(int id)
@@ -17,6 +17,11 @@ namespace ToDos.Controllers
             ToDo toDo = ToDoDBContextFactory.Create().
                                  ToDos.Where(td => td.ID == id).First();
             return View("Details", toDo);
+        }
+
+        public ViewResult Create()
+        {            
+            return View("Create");
         }
     }
 }

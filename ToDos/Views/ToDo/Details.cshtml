@@ -1,0 +1,22 @@
+﻿@model ToDos.Models.ToDo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>To Do</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WhatToDo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WhatToDo)
+        </dd>
+    </dl>
+</div>
+
