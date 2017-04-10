@@ -23,5 +23,13 @@ namespace ToDos.Controllers
         {            
             return View("Create");
         }
+
+        [HttpPost]
+        public ActionResult Create(ToDo toDo)
+        {
+            ToDoDBContextFactory.Create().ToDos.Add(toDo);
+            ToDoDBContextFactory.Create().SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

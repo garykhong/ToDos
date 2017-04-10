@@ -95,7 +95,22 @@ namespace ToDos.Tests.Controllers
         public void Create_ViewNameIsCreate()
         {
             ViewResult toDoCreateResult = controller.Create() as ViewResult;
-            Assert.AreEqual(toDoCreateResult.ViewName, "Create");           
+            Assert.AreEqual(toDoCreateResult.ViewName, "Create");
+            Assert.AreEqual(null, toDoCreateResult.Model);           
+        }
+
+        [TestMethod]
+        public void Create_OneToDoIsCreatedModelToDosIncreaseByOne()
+        {
+            ToDo toDo = new ToDo
+            {
+                ID = 3,
+                WhatToDo = "Buy CDs"
+            };
+            ActionResult toDoCreateResult = controller.Create(toDo) as ActionResult;
+            RedirectToRouteResult routeResult = toDoCreateResult as RedirectToRouteResult;            
+            Assert.AreEqual(3, fakeToDoDBContext.ToDos.Count());
+            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
         }
     }
 }
