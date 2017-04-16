@@ -18,9 +18,11 @@ namespace ToDos.Tests.Controllers
         private FakeToDoDBContext fakeToDoDBContext = new FakeToDoDBContext();
         private ViewResult toDoDetailsResult;
         private int toDoID;
+        private ToDo toDo;
         private string expectedWhatToDo;
         private ToDoController controller;
         private ViewResult toDoIndexResult;
+        private ActionResult toDoCreateResult;
 
         [TestInitialize]
         public void SetupDependencies()
@@ -102,15 +104,45 @@ namespace ToDos.Tests.Controllers
         [TestMethod]
         public void Create_OneToDoIsCreatedModelToDosIncreaseByOne()
         {
-            ToDo toDo = new ToDo
-            {
-                ID = 3,
-                WhatToDo = "Buy CDs"
-            };
-            ActionResult toDoCreateResult = controller.Create(toDo) as ActionResult;
+            toDoID = 3;
+            SetToDo();
+            SetToDoCreateResult();
             RedirectToRouteResult routeResult = toDoCreateResult as RedirectToRouteResult;            
             Assert.AreEqual(3, fakeToDoDBContext.ToDos.Count());
             Assert.AreEqual(routeResult.RouteValues["action"], "Index");
+        }
+
+        [TestMethod]
+        public void Create_NoIDForToDoSpecifiedGetsZero()
+        {
+            toDoID = 0;
+            SetToDo();
+            SetToDoCreateResult();
+            Assert.AreEqual(0, fakeToDoDBContext.ToDos.Last().ID);
+            Assert.AreEqual(DateTime.Today, fakeToDoDBContext.ToDos.Last().WhenItWasDone);
+        }
+
+        [TestMethod]
+        public void Model_WhenItWasDoneIsNullable()
+        {
+            toDo.WhenItWasDone = null;
+            SetToDoCreateResult();
+            Assert.AreEqual(null, fakeToDoDBContext.ToDos.Last().WhenItWasDone);
+        }
+
+        private void SetToDo()
+        {
+            toDo = new ToDo
+            {
+                ID = toDoID,
+                WhatToDo = "Buy CDs",
+                WhenItWasDone = DateTime.Today
+            };
+        }
+
+        private void SetToDoCreateResult()
+        {
+            toDoCreateResult = controller.Create(toDo) as ActionResult;
         }
     }
 }

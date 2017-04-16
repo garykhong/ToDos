@@ -199,6 +199,19 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ToDoController.cs" />
+    <Compile Include="Migrations\201704030314015_InitialCreate.cs" />
+    <Compile Include="Migrations\201704030314015_InitialCreate.Designer.cs">
+      <DependentUpon>201704030314015_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704160559323_InitialCreate1.cs" />
+    <Compile Include="Migrations\201704160559323_InitialCreate1.Designer.cs">
+      <DependentUpon>201704160559323_InitialCreate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704160624019_ToDoWhenItWasDoneNullable.cs" />
+    <Compile Include="Migrations\201704160624019_ToDoWhenItWasDoneNullable.Designer.cs">
+      <DependentUpon>201704160624019_ToDoWhenItWasDoneNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ToDoDBContext.cs" />
     <Compile Include="Models\ToDoDBContextFactory.cs" />
     <Compile Include="Global.asax.cs">
@@ -283,6 +296,17 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704030314015_InitialCreate.resx">
+      <DependentUpon>201704030314015_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160559323_InitialCreate1.resx">
+      <DependentUpon>201704160559323_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160624019_ToDoWhenItWasDoneNullable.resx">
+      <DependentUpon>201704160624019_ToDoWhenItWasDoneNullable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
