@@ -31,5 +31,10 @@ namespace ToDos.Controllers
             ToDoDBContextFactory.Create().SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ViewResult Edit(ToDo toDo)
+        {
+            return View("Edit");
+        }
     }
 }

@@ -125,7 +125,8 @@ namespace ToDos.Tests.Controllers
         [TestMethod]
         public void Model_WhenItWasDoneIsNullable()
         {
-            toDo.WhenItWasDone = null;
+            SetToDo();
+            toDo.WhenItWasDone = null;            
             SetToDoCreateResult();
             Assert.AreEqual(null, fakeToDoDBContext.ToDos.Last().WhenItWasDone);
         }
@@ -143,6 +144,16 @@ namespace ToDos.Tests.Controllers
         private void SetToDoCreateResult()
         {
             toDoCreateResult = controller.Create(toDo) as ActionResult;
+        }
+
+        [TestMethod]
+        public void Edit_ViewNameIsEdit()
+        {
+            controller = new ToDoController();
+            SetToDo();
+            toDo.WhatToDo = "Go to the gym";
+            ViewResult result = controller.Edit(toDo);
+            Assert.AreEqual("Edit", result.ViewName);
         }
     }
 }
