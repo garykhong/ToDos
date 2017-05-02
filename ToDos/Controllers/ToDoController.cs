@@ -34,7 +34,8 @@ namespace ToDos.Controllers
 
         public ViewResult Edit(ToDo toDo)
         {
-            return View("Edit");
+            return View("Edit", 
+                ToDoDBContextFactory.Create().ToDos.Where(td => td.ID == toDo.ID).FirstOrDefault());
         }
     }
 }

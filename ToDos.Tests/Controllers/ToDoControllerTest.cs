@@ -150,10 +150,17 @@ namespace ToDos.Tests.Controllers
         public void Edit_ViewNameIsEdit()
         {
             controller = new ToDoController();
-            SetToDo();
-            toDo.WhatToDo = "Go to the gym";
+            SetToDo();            
             ViewResult result = controller.Edit(toDo);
             Assert.AreEqual("Edit", result.ViewName);
+        }
+
+        [TestMethod]
+        public void Edit_RequestToEditToDo_IsFound()
+        {
+            controller = new ToDoController();            
+            ViewResult result = controller.Edit(fakeToDoDBContext.ToDos.First());
+            Assert.AreEqual(fakeToDoDBContext.ToDos.First().WhatToDo, ((ToDo)result.Model).WhatToDo);
         }
     }
 }
