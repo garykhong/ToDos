@@ -10,6 +10,7 @@ namespace ToDos.Models
         [Display(Name = "What to do") ]
         public string WhatToDo { get; set; }
         [Display(Name = "When it was done")]
+        [DataType(DataType.DateTime)]
         public DateTime? WhenItWasDone { get; set; }
     }
 }

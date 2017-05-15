@@ -74,7 +74,7 @@ namespace ToDos.Tests.Controllers
 
         public ToDo Find(params object[] keyValues)
         {
-            throw new NotImplementedException();
+            return ToDos.Where(toDo => toDo.ID == Convert.ToInt16(keyValues[0])).FirstOrDefault();
         }
 
         public IEnumerator<ToDo> GetEnumerator()

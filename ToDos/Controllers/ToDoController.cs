@@ -32,10 +32,25 @@ namespace ToDos.Controllers
             return RedirectToAction("Index");
         }
 
-        public ViewResult Edit(ToDo toDo)
+        [HttpGet]
+        public ViewResult Edit(int? toDoID)
         {
             return View("Edit", 
-                ToDoDBContextFactory.Create().ToDos.Where(td => td.ID == toDo.ID).FirstOrDefault());
+                ToDoDBContextFactory.Create().ToDos.Find(toDoID));
+        }
+
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "ID,WhatToDo,WhenItWasDone")]ToDo toDo)
+        {
+            ResetToDoDBContext();
+            ToDoDBContextFactory.Create().SetToDoEntryState(toDo);            
+            ToDoDBContextFactory.Create().SaveChanges();            
+            return RedirectToAction("Index");
+        }
+
+        protected virtual void ResetToDoDBContext()
+        {
+            ToDoDBContextFactory.SetToDoDBContext(new ToDoDBContext());
         }
     }
 }

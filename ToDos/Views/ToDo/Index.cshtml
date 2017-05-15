@@ -37,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.WhenItWasDone)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", item) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID}) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID})
+                @Html.ActionLink("Edit", "Edit", new { toDoID = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { toDoID = item.ID}) |
+                @Html.ActionLink("Delete", "Delete", new { toDoID = item.ID})
             </td>
         </tr>
     }

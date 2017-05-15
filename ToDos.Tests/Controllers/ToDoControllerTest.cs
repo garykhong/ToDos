@@ -42,7 +42,7 @@ namespace ToDos.Tests.Controllers
         public void Index_WithNoFilterAllToDosAreBoundToModel()
         {
             SetToDoIndexResult();
-            Assert.AreEqual(fakeToDoDBContext.FakeToDos.Local.Count(),
+            Assert.AreEqual(fakeToDoDBContext.ToDos.Local.Count(),
                 ((IDbSet<ToDo>)toDoIndexResult.Model).Count());
         }
 
@@ -77,7 +77,7 @@ namespace ToDos.Tests.Controllers
         {
             fakeToDoDBContext.ToDos.Add(new ToDo { ID = 1, WhatToDo = "Buy Groceries" });
             fakeToDoDBContext.ToDos.Add(new ToDo { ID = 2, WhatToDo = "Cook Rice" });
-            fakeToDoDBContext.SaveChanges();
+            //fakeToDoDBContext.SaveChanges();
             ToDoDBContextFactory.SetToDoDBContext(fakeToDoDBContext);
         }
 
@@ -151,7 +151,7 @@ namespace ToDos.Tests.Controllers
         {
             controller = new ToDoController();
             SetToDo();            
-            ViewResult result = controller.Edit(toDo);
+            ViewResult result = controller.Edit(toDo.ID);
             Assert.AreEqual("Edit", result.ViewName);
         }
 
@@ -159,8 +159,21 @@ namespace ToDos.Tests.Controllers
         public void Edit_RequestToEditToDo_IsFound()
         {
             controller = new ToDoController();            
-            ViewResult result = controller.Edit(fakeToDoDBContext.ToDos.First());
+            ViewResult result = controller.Edit(fakeToDoDBContext.ToDos.First().ID);
             Assert.AreEqual(fakeToDoDBContext.ToDos.First().WhatToDo, ((ToDo)result.Model).WhatToDo);
         }
+
+        [TestMethod]
+        public void Edit_RequestToSaveEditedToDo_IsUpdatedInTheToDoDBContext()
+        {
+            controller = new MockToDoController();
+            fakeToDoDBContext.ToDos.First().WhatToDo = "Buy candy";
+            RedirectToRouteResult result = controller.Edit(fakeToDoDBContext.ToDos.First()) as RedirectToRouteResult;
+            
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual(true, fakeToDoDBContext.SaveChangesWasCalled);
+            Assert.AreEqual(EntityState.Modified, fakeToDoDBContext.GetFakeToDoEntryState());
+        }
+
     }
 }
