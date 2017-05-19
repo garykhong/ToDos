@@ -92,6 +92,7 @@
     <Compile Include="Controllers\FakeToDoDBContext.cs" />
     <Compile Include="Controllers\MockToDoController.cs" />
     <Compile Include="Controllers\ToDoControllerTest.cs" />
+    <Compile Include="Controllers\ToDoDeleteControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>

@@ -199,6 +199,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ToDoController.cs" />
+    <Compile Include="Controllers\ToDo\ToDoDeleteController.cs" />
     <Compile Include="Migrations\201704030314015_InitialCreate.cs" />
     <Compile Include="Migrations\201704030314015_InitialCreate.Designer.cs">
       <DependentUpon>201704030314015_InitialCreate.cs</DependentUpon>
@@ -286,6 +287,7 @@
     <Content Include="Views\ToDo\Details.cshtml" />
     <Content Include="Views\ToDo\Create.cshtml" />
     <Content Include="Views\ToDo\Edit.cshtml" />
+    <Content Include="Views\ToDoDelete\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

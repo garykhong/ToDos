@@ -1,0 +1,30 @@
+﻿@model ToDos.Models.ToDo
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Delete To Do</h2>
+<div>
+    <h4>To Do</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WhatToDo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WhatToDo)
+        </dd>
+    </dl>
+</div>
+
+@using(Html.BeginForm())
+{
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "ToDo", new object(), new object())
+</div>

@@ -12,10 +12,10 @@ namespace ToDos.Controllers
             return View("Index", ToDoDBContextFactory.Create().ToDos);
         }
 
-        public ViewResult Details(int id)
+        public ViewResult Details(int? toDoID)
         {            
             ToDo toDo = ToDoDBContextFactory.Create().
-                                 ToDos.Where(td => td.ID == id).First();
+                                 ToDos.Where(td => td.ID == toDoID).First();
             return View("Details", toDo);
         }
 
