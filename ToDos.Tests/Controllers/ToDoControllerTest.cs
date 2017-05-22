@@ -77,7 +77,6 @@ namespace ToDos.Tests.Controllers
         {
             fakeToDoDBContext.ToDos.Add(new ToDo { ID = 1, WhatToDo = "Buy Groceries" });
             fakeToDoDBContext.ToDos.Add(new ToDo { ID = 2, WhatToDo = "Cook Rice" });
-            //fakeToDoDBContext.SaveChanges();
             ToDoDBContextFactory.SetToDoDBContext(fakeToDoDBContext);
         }
 

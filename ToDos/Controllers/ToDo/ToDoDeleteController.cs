@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Web.Mvc;
+using ToDos.Models;
+using System.Linq;
 
 namespace ToDos.Controllers
 {
     public class ToDoDeleteController : Controller
-    {
+    {        
         public ToDoDeleteController()
         {
         }
 
-        public ViewResult Index(int? v)
+        public ViewResult Index(int? toDoID)
         {
-            return View("Index");
+            ToDo toDoToBeDeleted = ToDoDBContextFactory.Create().
+                ToDos.Where(toDo => toDo.ID == toDoID).FirstOrDefault();
+            return View("Index", toDoToBeDeleted);
         }
     }
 }
