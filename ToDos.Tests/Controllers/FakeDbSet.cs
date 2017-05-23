@@ -84,7 +84,8 @@ namespace ToDos.Tests.Controllers
 
         public ToDo Remove(ToDo entity)
         {
-            throw new NotImplementedException();
+            ToDos.Remove(entity);
+            return entity;
         }
 
         TDerivedEntity IDbSet<ToDo>.Create<TDerivedEntity>()

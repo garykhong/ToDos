@@ -19,7 +19,7 @@ namespace ToDos.Tests.Controllers
         public void EverytimeIndexActionCalled_ViewNameIsIndex()
         {
             ToDoDeleteController toDoDeleteController = new ToDoDeleteController();
-            ViewResult viewResult = toDoDeleteController.Index(1);
+            ViewResult viewResult = toDoDeleteController.Index((int?)1);
             Assert.AreEqual("Index", viewResult.ViewName);
         }
 
@@ -30,12 +30,24 @@ namespace ToDos.Tests.Controllers
             controller = new ToDoDeleteController();
             toDoID = 1;
             expectedWhatToDo = "Buy Groceries";
-            TestToDoDeleteResult();
+            TestToDoDeleteControllerIndexResult();
         }
 
-        private void TestToDoDeleteResult()
+        [TestMethod]
+        public void RequestToDeleteToDo_IsDeletedFromTheToDoDBContext()
         {
-            SetToDoControllerDetailsResult();
+            SetFakeToDoDBContext();
+            controller = new ToDoDeleteController();
+            toDoID = 1;
+            RedirectToRouteResult result = controller.Index(toDoID) as RedirectToRouteResult;
+            Assert.AreEqual(null, fakeToDoDBContext.ToDos.Find(toDoID));
+            Assert.AreEqual("ToDo", result.RouteValues["controller"]);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+        }
+
+        private void TestToDoDeleteControllerIndexResult()
+        {
+            SetToDoDeleteControllerIndexResult();
             AssertToDoDetailsResult();
         }
 
@@ -46,9 +58,9 @@ namespace ToDos.Tests.Controllers
             ToDoDBContextFactory.SetToDoDBContext(fakeToDoDBContext);
         }
 
-        private void SetToDoControllerDetailsResult()
+        private void SetToDoDeleteControllerIndexResult()
         {
-            toDoDeleteIndexResult = controller.Index(toDoID) as ViewResult;
+            toDoDeleteIndexResult = controller.Index((int?)toDoID) as ViewResult;
         }
 
         private void AssertToDoDetailsResult()
