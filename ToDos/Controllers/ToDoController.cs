@@ -12,6 +12,19 @@ namespace ToDos.Controllers
             return View("Index", ToDoDBContextFactory.Create().ToDos);
         }
 
+        public ViewResult FilterByWhatToDo(string whatToDoContainsThis)
+        {
+            if(whatToDoContainsThis == string.Empty)
+            {
+                return Index();
+            }
+
+            var toDosFound = ToDoDBContextFactory.Create().
+                ToDos.Where(toDo => toDo.WhatToDo.ToLower().
+                               Contains(whatToDoContainsThis.ToLower()));
+            return View("Index", toDosFound);
+        }
+
         public ViewResult Details(int? toDoID)
         {            
             ToDo toDo = ToDoDBContextFactory.Create().
@@ -51,6 +64,6 @@ namespace ToDos.Controllers
         protected virtual void ResetToDoDBContext()
         {
             ToDoDBContextFactory.SetToDoDBContext(new ToDoDBContext());
-        }
+        }        
     }
 }

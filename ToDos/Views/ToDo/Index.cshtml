@@ -9,10 +9,10 @@
 
 @Html.ActionLink("Create New", "Create")
 
-@using (Html.BeginForm("Index", "ToDo", FormMethod.Get))
+@using (Html.BeginForm("FilterByWhatToDo", "ToDo", FormMethod.Get))
 {
     <p>
-        What to do: @Html.TextBox("whatToDo") 
+        What to do: @Html.TextBox("whatToDoContainsThis") 
         <input type="submit" value="Filter" />
     </p>
 }

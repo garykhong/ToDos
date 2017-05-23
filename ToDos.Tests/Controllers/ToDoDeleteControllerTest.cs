@@ -39,7 +39,7 @@ namespace ToDos.Tests.Controllers
             SetFakeToDoDBContext();
             controller = new ToDoDeleteController();
             toDoID = 1;
-            RedirectToRouteResult result = controller.Index(toDoID) as RedirectToRouteResult;
+            RedirectToRouteResult result = controller.Delete(toDoID) as RedirectToRouteResult;
             Assert.AreEqual(null, fakeToDoDBContext.ToDos.Find(toDoID));
             Assert.AreEqual("ToDo", result.RouteValues["controller"]);
             Assert.AreEqual("Index", result.RouteValues["action"]);

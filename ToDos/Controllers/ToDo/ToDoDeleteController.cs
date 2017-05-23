@@ -19,7 +19,7 @@ namespace ToDos.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(int toDoID)
+        public ActionResult Delete(int toDoID)
         {
             ToDo toDoToBeDeleted = ToDoDBContextFactory.Create().
                 ToDos.Where(toDo => toDo.ID == toDoID).FirstOrDefault();

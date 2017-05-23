@@ -27,7 +27,7 @@
     </dl>
 </div>
 
-@using(Html.BeginForm())
+@using(Html.BeginForm("Delete", "ToDoDelete", new { toDoID = Model.ID }))
 {
     <div class="form-actions no-color">
         <input type="submit" value="Delete" class="btn btn-default" />

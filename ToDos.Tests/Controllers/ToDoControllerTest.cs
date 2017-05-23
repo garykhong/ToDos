@@ -46,6 +46,21 @@ namespace ToDos.Tests.Controllers
                 ((IDbSet<ToDo>)toDoIndexResult.Model).Count());
         }
 
+        [TestMethod]
+        public void FilterByWhatToDo_WithFilterOneToDoIsBoundToModel()
+        {
+            toDoIndexResult = controller.FilterByWhatToDo("rice");
+            Assert.AreEqual(2, ((IQueryable<ToDo>)toDoIndexResult.Model).FirstOrDefault().ID);
+        }
+
+        [TestMethod]
+        public void FilterByWhatToDo_WithNoFilterAllToDosAreBoundToModel()
+        {
+            toDoIndexResult = controller.FilterByWhatToDo("");
+            Assert.AreEqual(fakeToDoDBContext.ToDos.Count(), 
+                ((IQueryable<ToDo>)toDoIndexResult.Model).Count());
+        }
+
         private void SetToDoIndexResult()
         {
             toDoIndexResult = controller.Index() as ViewResult;
