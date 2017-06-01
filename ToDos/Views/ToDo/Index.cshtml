@@ -13,7 +13,7 @@
 {
     <p>
         What to do: @Html.TextBox("whatToDoContainsThis") 
-        <input type="submit" value="Filter" />
+        <input type="submit" value="Filter" class="btn btn-success"/>
     </p>
 }
 
@@ -30,13 +30,13 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="col-md-4">
                 @Html.DisplayFor(modelItem => item.WhatToDo)
             </td>
-            <td>
+            <td class="col-md-4">
                 @Html.DisplayFor(modelItem => item.WhenItWasDone)
             </td>
-            <td>
+            <td class="col-md-4">
                 @Html.ActionLink("Edit", "Edit", new { toDoID = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { toDoID = item.ID}) |
                 @Html.ActionLink("Delete", "Index", "ToDoDelete", new { toDoID = item.ID}, new object())
