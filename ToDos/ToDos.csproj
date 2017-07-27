@@ -654,6 +654,7 @@
     <Content Include="frontend library\jquery\external\sizzle\dist\sizzle.min.map" />
     <Content Include="frontend library\jquery\README.md" />
     <Content Include="frontend library\jquery\src\.eslintrc.json" />
+    <None Include="Properties\PublishProfiles\ToDos20170709053253 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

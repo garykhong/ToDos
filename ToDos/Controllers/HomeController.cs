@@ -15,14 +15,14 @@ namespace ToDos.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Why create To Dos?";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Getting in touch with feedback on the website.";
 
             return View();
         }

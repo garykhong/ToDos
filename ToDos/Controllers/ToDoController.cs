@@ -9,12 +9,16 @@ namespace ToDos.Controllers
     {
         public ViewResult Index()
         {
-            return View("Index", ToDoDBContextFactory.Create().ToDos);
+            return View("Index",
+                ToDoDBContextFactory.Create().ToDos.
+                           OrderBy(toDo => toDo.WhenItWasDone).
+                             ThenByDescending(toDo => toDo.ID)
+                       );
         }
 
         public ViewResult FilterByWhatToDo(string whatToDoContainsThis)
         {
-            if(whatToDoContainsThis == string.Empty)
+            if (whatToDoContainsThis == string.Empty)
             {
                 return Index();
             }
@@ -26,14 +30,14 @@ namespace ToDos.Controllers
         }
 
         public ViewResult Details(int? toDoID)
-        {            
+        {
             ToDo toDo = ToDoDBContextFactory.Create().
                                  ToDos.Where(td => td.ID == toDoID).First();
             return View("Details", toDo);
         }
 
         public ViewResult Create()
-        {            
+        {
             return View("Create");
         }
 
@@ -48,7 +52,7 @@ namespace ToDos.Controllers
         [HttpGet]
         public ViewResult Edit(int? toDoID)
         {
-            return View("Edit", 
+            return View("Edit",
                 ToDoDBContextFactory.Create().ToDos.Find(toDoID));
         }
 
@@ -56,14 +60,14 @@ namespace ToDos.Controllers
         public ActionResult Edit([Bind(Include = "ID,WhatToDo,WhenItWasDone")]ToDo toDo)
         {
             ResetToDoDBContext();
-            ToDoDBContextFactory.Create().SetToDoEntryState(toDo);            
-            ToDoDBContextFactory.Create().SaveChanges();            
+            ToDoDBContextFactory.Create().SetToDoEntryState(toDo);
+            ToDoDBContextFactory.Create().SaveChanges();
             return RedirectToAction("Index");
         }
 
         protected virtual void ResetToDoDBContext()
         {
             ToDoDBContextFactory.SetToDoDBContext(new ToDoDBContext());
-        }        
+        }
     }
 }

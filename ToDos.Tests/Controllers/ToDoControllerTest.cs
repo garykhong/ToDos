@@ -43,13 +43,20 @@ namespace ToDos.Tests.Controllers
         {
             SetToDoIndexResult();
             Assert.AreEqual(fakeToDoDBContext.ToDos.Local.Count(),
-                ((IDbSet<ToDo>)toDoIndexResult.Model).Count());
+                ((IQueryable<ToDo>)toDoIndexResult.Model).Count());
         }
 
         [TestMethod]
         public void FilterByWhatToDo_WithFilterOneToDoIsBoundToModel()
         {
             toDoIndexResult = controller.FilterByWhatToDo("rice");
+            Assert.AreEqual(2, ((IQueryable<ToDo>)toDoIndexResult.Model).FirstOrDefault().ID);
+        }
+
+        [TestMethod]
+        public void Index_ToDosAreSortedNewestIncompleteToDo()
+        {
+            SetToDoIndexResult();
             Assert.AreEqual(2, ((IQueryable<ToDo>)toDoIndexResult.Model).FirstOrDefault().ID);
         }
 
@@ -92,6 +99,8 @@ namespace ToDos.Tests.Controllers
         {
             fakeToDoDBContext.ToDos.Add(new ToDo { ID = 1, WhatToDo = "Buy Groceries" });
             fakeToDoDBContext.ToDos.Add(new ToDo { ID = 2, WhatToDo = "Cook Rice" });
+            fakeToDoDBContext.ToDos.Add(new ToDo { ID = 3, WhatToDo = "Buy baby groot",
+                                                     WhenItWasDone = new DateTime(2012, 10, 12) });
             ToDoDBContextFactory.SetToDoDBContext(fakeToDoDBContext);
         }
 
@@ -122,7 +131,7 @@ namespace ToDos.Tests.Controllers
             SetToDo();
             SetToDoCreateResult();
             RedirectToRouteResult routeResult = toDoCreateResult as RedirectToRouteResult;            
-            Assert.AreEqual(3, fakeToDoDBContext.ToDos.Count());
+            Assert.AreEqual(4, fakeToDoDBContext.ToDos.Count());
             Assert.AreEqual(routeResult.RouteValues["action"], "Index");
         }
 
