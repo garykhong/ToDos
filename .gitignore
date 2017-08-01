@@ -45,3 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.suo
+ToDos/App_Data/aspnet-ToDos-20170331011902.mdf
+*.mdf
+ToDos/App_Data/ToDos_log.ldf
+*.dll
+ToDos/bin/ToDos.pdb
+*.dll
+ToDos/obj/Release/Package/PackageTmp/bin/ToDos.dll
