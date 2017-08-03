@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using ToDos.Models;
 using System.Linq;
+using Microsoft.AspNet.Identity;
 
 namespace ToDos.Controllers
 {
@@ -9,8 +10,10 @@ namespace ToDos.Controllers
     {
         public ViewResult Index()
         {
+            string userName = GetLoggedInUserName();
             return View("Index",
                 ToDoDBContextFactory.Create().ToDos.
+                          Where(toDo => toDo.UserName == userName).
                            OrderBy(toDo => toDo.WhenItWasDone).
                              ThenByDescending(toDo => toDo.ID)
                        );
@@ -44,6 +47,7 @@ namespace ToDos.Controllers
         [HttpPost]
         public ActionResult Create(ToDo toDo)
         {
+            toDo.UserName = GetLoggedInUserName();
             ToDoDBContextFactory.Create().ToDos.Add(toDo);
             ToDoDBContextFactory.Create().SaveChanges();
             return RedirectToAction("Index");
@@ -68,6 +72,12 @@ namespace ToDos.Controllers
         protected virtual void ResetToDoDBContext()
         {
             ToDoDBContextFactory.SetToDoDBContext(new ToDoDBContext());
+        }
+
+        private string GetLoggedInUserName()
+        {
+            string userName = User == null ? null : User.Identity.GetUserName();
+            return userName;
         }
     }
 }

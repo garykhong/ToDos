@@ -212,6 +212,10 @@
     <Compile Include="Migrations\201704160624019_ToDoWhenItWasDoneNullable.Designer.cs">
       <DependentUpon>201704160624019_ToDoWhenItWasDoneNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708030259278_AddUserNameToToDo.cs" />
+    <Compile Include="Migrations\201708030259278_AddUserNameToToDo.Designer.cs">
+      <DependentUpon>201708030259278_AddUserNameToToDo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ToDoDBContext.cs" />
     <Compile Include="Models\ToDoDBContextFactory.cs" />
@@ -727,6 +731,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704160624019_ToDoWhenItWasDoneNullable.resx">
       <DependentUpon>201704160624019_ToDoWhenItWasDoneNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708030259278_AddUserNameToToDo.resx">
+      <DependentUpon>201708030259278_AddUserNameToToDo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

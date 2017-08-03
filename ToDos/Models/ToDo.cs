@@ -12,5 +12,6 @@ namespace ToDos.Models
         [Display(Name = "When it was done")]
         [DataType(DataType.DateTime)]
         public DateTime? WhenItWasDone { get; set; }
-    }
+        public string UserName { get; set; }
+    }    
 }
