@@ -55,6 +55,7 @@ namespace ToDos.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [RequireHttps]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -66,6 +67,7 @@ namespace ToDos.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [RequireHttps]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)

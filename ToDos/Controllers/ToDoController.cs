@@ -8,15 +8,20 @@ namespace ToDos.Controllers
 {
     public class ToDoController : Controller
     {
+        [Authorize]
         public ViewResult Index()
+        {            
+            return View("Index", GetSortedToDosByLoggedInUserName());
+        }
+
+        private IOrderedQueryable<ToDo> GetSortedToDosByLoggedInUserName()
         {
             string userName = GetLoggedInUserName();
-            return View("Index",
-                ToDoDBContextFactory.Create().ToDos.
+
+            return ToDoDBContextFactory.Create().ToDos.
                           Where(toDo => toDo.UserName == userName).
                            OrderBy(toDo => toDo.WhenItWasDone).
-                             ThenByDescending(toDo => toDo.ID)
-                       );
+                             ThenByDescending(toDo => toDo.ID);
         }
 
         public ViewResult FilterByWhatToDo(string whatToDoContainsThis)
@@ -61,7 +66,7 @@ namespace ToDos.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "ID,WhatToDo,WhenItWasDone")]ToDo toDo)
+        public ActionResult Edit([Bind(Include = "ID,WhatToDo,WhenItWasDone,UserName")]ToDo toDo)
         {
             ResetToDoDBContext();
             ToDoDBContextFactory.Create().SetToDoEntryState(toDo);
