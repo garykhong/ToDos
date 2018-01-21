@@ -55,7 +55,9 @@ namespace ToDos.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+#if RELEASE
         [RequireHttps]
+#endif
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -67,7 +69,9 @@ namespace ToDos.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+#if RELEASE
         [RequireHttps]
+#endif
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -425,7 +429,7 @@ namespace ToDos.Controllers
             base.Dispose(disposing);
         }
 
-        #region Helpers
+#region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -482,6 +486,6 @@ namespace ToDos.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
-        #endregion
+#endregion
     }
 }
