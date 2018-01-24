@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - To Dos</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/jquery-ui/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="~/frontend library/bootswatch/cerulean/bootstrap.min.css" />
 </head>
@@ -46,7 +47,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jquery-ui")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/DatePickerInitialiser")
+    @Scripts.Render("~/bundles/DatePickerInitialiser")    
     @RenderSection("scripts", required: false)    
 </body>
 </html>
