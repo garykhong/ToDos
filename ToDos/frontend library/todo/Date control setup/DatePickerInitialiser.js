@@ -1,3 +1,5 @@
 ﻿$(function () {
-    $("#WhenItWasDone").datepicker();
+    $("#WhenItWasDone").datepicker({
+        dateFormat: 'dd/mm/yyyy'
+    });
 });

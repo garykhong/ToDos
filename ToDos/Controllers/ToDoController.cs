@@ -3,12 +3,14 @@ using System.Web.Mvc;
 using ToDos.Models;
 using System.Linq;
 using Microsoft.AspNet.Identity;
+using ToDos.Controllers.Attributes;
 
 namespace ToDos.Controllers
 {
+    [RequireHttpsForRemoteRequest]
+    [Authorize]
     public class ToDoController : Controller
-    {
-        [Authorize]
+    {        
         public ViewResult Index()
         {            
             return View("Index", GetSortedToDosByLoggedInUserName());

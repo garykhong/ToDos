@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ToDos.Models;
+using ToDos.Controllers.Attributes;
 
 namespace ToDos.Controllers
 {
@@ -55,9 +56,7 @@ namespace ToDos.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-#if RELEASE
-        [RequireHttps]
-#endif
+        [RequireHttpsForRemoteRequest]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -69,9 +68,7 @@ namespace ToDos.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-#if RELEASE
-        [RequireHttps]
-#endif
+        [RequireHttpsForRemoteRequest]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -455,7 +452,7 @@ namespace ToDos.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "ToDo");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
