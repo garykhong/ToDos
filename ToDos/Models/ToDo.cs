@@ -11,6 +11,8 @@ namespace ToDos.Models
         public string WhatToDo { get; set; }
         [Display(Name = "When it was done")]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", 
+                       ApplyFormatInEditMode = true)]
         public DateTime? WhenItWasDone { get; set; }
         public string UserName { get; set; }
     }    
