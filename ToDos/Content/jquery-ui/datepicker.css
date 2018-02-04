@@ -38,7 +38,7 @@
     }
 
     .ui-datepicker .ui-datepicker-next {
-        right: 2px;
+        right: 15px;
     }
 
     .ui-datepicker .ui-datepicker-prev-hover {
@@ -46,7 +46,7 @@
     }
 
     .ui-datepicker .ui-datepicker-next-hover {
-        right: 1px;
+        right: 14px;
     }
 
     .ui-datepicker .ui-datepicker-prev span,

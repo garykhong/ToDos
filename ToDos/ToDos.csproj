@@ -1299,7 +1299,10 @@
     <Content Include="frontend library\jquery-ui\package.json" />
     <Content Include="frontend library\jquery-ui\README.md" />
     <Content Include="frontend library\jquery-ui\ui\.jshintrc" />
-    <None Include="Properties\PublishProfiles\ToDos20170709053253 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\MyThingsToDo - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ToDos20170709053253 - Web Deploy.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
