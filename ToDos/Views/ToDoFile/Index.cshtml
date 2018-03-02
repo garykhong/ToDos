@@ -1,0 +1,52 @@
+﻿@model ToDos.Models.ToDo
+@{
+    ViewBag.Title = "Add To Do File ";
+}
+
+<h2>Add To Do File</h2>
+@using (Html.BeginForm("UploadFile", "ToDoFile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.ID)
+    <div class="form-group">
+        <input type="file" name="postedFile" />
+    </div>
+    <div class="form-group">
+        <input type="submit" id="btnUpload" value="Upload" class="btn btn-success" />
+    </div>    
+}
+
+@using (Html.BeginForm("DownloadFile", "ToDoFile", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.ID)
+    <input type="hidden" id="hfFileId" name="FileId" />
+    <input type="submit" id="btnDownload" value="Download" style="display:none" />
+}
+
+<table cellpadding="0" cellspacing="0">
+    <tr>
+        <th style="width:50px">File ID</th>
+        <th style="width:120px">File Name</th>
+        <th style="width:80px">Download</th>
+    </tr>
+    @if (Model.ToDoFiles.Count > 0)
+    {
+        foreach (var file in Model.ToDoFiles)
+        {
+            <tr>
+                <td>@file.ID</td>
+                <td>@file.Name</td>
+                <td><a href="javascript:;" onclick="DownloadFile(@file.ID)">Download</a></td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="3">&nbsp;</td>
+        </tr>
+    }
+</table>
+
+<div>
+    @Html.ActionLink("Back to To Do", "Edit", "ToDo", new { toDoID = Model.ID }, new object())
+</div>

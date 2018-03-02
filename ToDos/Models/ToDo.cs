@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System;
+using System.Collections.Generic;
 
 namespace ToDos.Models
 {
@@ -15,5 +16,11 @@ namespace ToDos.Models
                        ApplyFormatInEditMode = true)]
         public DateTime? WhenItWasDone { get; set; }
         public string UserName { get; set; }
+        public List<ToDoFile> ToDoFiles { get; set; }
+
+        public ToDo()
+        {
+            ToDoFiles = new List<ToDoFile>();
+        }
     }    
 }
