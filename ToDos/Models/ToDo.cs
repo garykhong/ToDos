@@ -16,11 +16,6 @@ namespace ToDos.Models
                        ApplyFormatInEditMode = true)]
         public DateTime? WhenItWasDone { get; set; }
         public string UserName { get; set; }
-        public List<ToDoFile> ToDoFiles { get; set; }
-
-        public ToDo()
-        {
-            ToDoFiles = new List<ToDoFile>();
-        }
+        public virtual ICollection<ToDoFile> ToDoFiles { get; set; }
     }    
 }
