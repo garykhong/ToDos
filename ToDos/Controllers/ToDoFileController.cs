@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ToDos.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ToDos.Controllers
 {
@@ -45,6 +46,17 @@ namespace ToDos.Controllers
             ToDo toDoThatIsSaved = ToDoDBContextFactory.Create().ToDos.Where(savedToDo => savedToDo.ID == toDo.ID).FirstOrDefault();
             ToDoFile toDoFile = toDoThatIsSaved.ToDoFiles.Where(file => file.ID == fileId).FirstOrDefault();
             return File(toDoFile.Data, toDoFile.ContentType, toDoFile.Name);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int toDoFileID, ToDo toDo)
+        {
+            ToDo toDoThatIsSaved = ToDoDBContextFactory.Create().ToDos.Where(savedToDo => savedToDo.ID == toDo.ID).FirstOrDefault();
+            ToDoFile toDoFileToBeRemoved = toDoThatIsSaved.ToDoFiles.Where(toDoFile => toDoFile.ID == toDoFileID).FirstOrDefault();
+            toDoThatIsSaved.ToDoFiles.Remove(toDoFileToBeRemoved);
+            ToDoDBContextFactory.Create().ToDoFiles.Remove(toDoFileToBeRemoved);
+            ToDoDBContextFactory.Create().SaveChanges();
+            return RedirectToAction("Index", new { toDoID = toDo.ID });
         }
     }
 }

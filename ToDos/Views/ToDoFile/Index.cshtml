@@ -12,7 +12,7 @@
     </div>
     <div class="form-group">
         <input type="submit" id="btnUpload" value="Upload" class="btn btn-success" />
-    </div>    
+    </div>
 }
 
 @using (Html.BeginForm("DownloadFile", "ToDoFile", FormMethod.Post))
@@ -23,19 +23,24 @@
 }
 
 <table class="table table-responsive table-striped">
-    <tr>        
-        <th style="width:120px">File Name</th>
-        <th style="width:80px">Download</th>
+    <tr>
+        <th>File Name</th>
+        <th>Actions</th>
     </tr>
-    @if (Model.ToDoFiles.Count > 0)
+
+    @foreach (var file in Model.ToDoFiles)
     {
-        foreach (var file in Model.ToDoFiles)
-        {
-            <tr>                
-                <td>@file.Name</td>
-                <td><a href="javascript:;" onclick="DownloadFile(@file.ID)">Download</a></td>
-            </tr>
-        }
+        <tr>
+            <td>@file.Name</td>
+            <td>
+                <a href="javascript:;" onclick="DownloadFile(@file.ID)">Download</a> |
+                @using (Html.BeginForm("Delete", "ToDoFile", new { toDoFileID = file.ID }))
+                {
+                    @Html.HiddenFor(model => model.ID)
+                    <input type="submit" value="Delete" class="btn-link" />
+                }
+            </td>
+        </tr>
     }
 </table>
 

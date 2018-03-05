@@ -4,6 +4,7 @@ using ToDos.Models;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using ToDos.Controllers.Attributes;
+using System.Collections.Generic;
 
 namespace ToDos.Controllers
 {
@@ -52,12 +53,25 @@ namespace ToDos.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ToDo toDo)
+        public ActionResult Create(ToDo toDo, string MaintainFiles)
+        {
+            SaveToDoWithLoggedInUserName(toDo);
+            if(MaintainFiles != string.Empty)
+            {
+                return RedirectToAction("Index", "ToDoFile", new { toDoID = toDo.ID});
+            }
+            return RedirectToAction("Index");
+        }
+
+        private void SaveToDoWithLoggedInUserName(ToDo toDo)
         {
             toDo.UserName = GetLoggedInUserName();
+            if(toDo.ToDoFiles == null)
+            {
+                toDo.ToDoFiles = new List<ToDoFile>();
+            }
             ToDoDBContextFactory.Create().ToDos.Add(toDo);
             ToDoDBContextFactory.Create().SaveChanges();
-            return RedirectToAction("Index");
         }
 
         [HttpGet]

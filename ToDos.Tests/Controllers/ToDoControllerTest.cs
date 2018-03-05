@@ -166,7 +166,7 @@ namespace ToDos.Tests.Controllers
 
         private void SetToDoCreateResult()
         {
-            toDoCreateResult = controller.Create(toDo) as ActionResult;
+            toDoCreateResult = controller.Create(toDo, null) as ActionResult;
         }
 
         [TestMethod]
