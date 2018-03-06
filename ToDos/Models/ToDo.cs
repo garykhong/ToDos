@@ -9,7 +9,6 @@ namespace ToDos.Models
         [Key]
         public int ID { get; set; }
         [Display(Name = "What to do")]
-        [Required(AllowEmptyStrings = false)]
         public string WhatToDo { get; set; }
         [Display(Name = "When it was done")]
         [DataType(DataType.DateTime)]
@@ -17,7 +16,6 @@ namespace ToDos.Models
                        ApplyFormatInEditMode = true)]
         public DateTime? WhenItWasDone { get; set; }
         public string UserName { get; set; }
-        private ICollection<ToDoFile> toDoFiles;
         public virtual ICollection<ToDoFile> ToDoFiles { get; set; }
     }
 }

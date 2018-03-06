@@ -7,13 +7,13 @@ namespace ToDos.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class MakeWhatToDoRequiredToBeFilledIn : IMigrationMetadata
+    public sealed partial class AddBlankCheckOnWhatToDo : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MakeWhatToDoRequiredToBeFilledIn));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddBlankCheckOnWhatToDo));
         
         string IMigrationMetadata.Id
         {
-            get { return "201803050142577_MakeWhatToDoRequiredToBeFilledIn"; }
+            get { return "201803050721409_AddBlankCheckOnWhatToDo"; }
         }
         
         string IMigrationMetadata.Source

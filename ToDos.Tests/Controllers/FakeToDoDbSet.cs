@@ -9,11 +9,11 @@ using ToDos.Models;
 
 namespace ToDos.Tests.Controllers
 {
-    internal class FakeDbSet<T> : IDbSet<ToDo>
+    internal class FakeToDoDbSet<T> : IDbSet<ToDo>
     {
         public List<ToDo> ToDos { get; set; }
 
-        public FakeDbSet()
+        public FakeToDoDbSet()
         {
             ToDos = new List<ToDo>();
         }

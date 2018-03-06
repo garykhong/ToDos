@@ -3,7 +3,7 @@ namespace ToDos.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class MakeWhatToDoRequiredToBeFilledIn : DbMigration
+    public partial class AddBlankCheckOnWhatToDo : DbMigration
     {
         public override void Up()
         {

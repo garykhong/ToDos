@@ -8,17 +8,26 @@ namespace ToDos.Tests.Controllers
 {
     internal class FakeToDoDBContext : ToDoDBContext
     {
-        private IDbSet<ToDo> fakeToDos = new FakeDbSet<ToDo>();
+        private IDbSet<ToDo> fakeToDos = new FakeToDoDbSet<ToDo>();
+        private IDbSet<ToDoFile> fakeToDoFiles = new FakeToDoFileDbSet<ToDoFile>();
         private EntityState fakeToDoEntryState = EntityState.Unchanged;
 
         public FakeToDoDBContext()
         {
             base.ToDos = fakeToDos;
+            base.ToDoFiles = fakeToDoFiles;
             SaveChangesWasCalled = false;
         }
+
         public override IDbSet<ToDo> ToDos
         {
             get { return fakeToDos; }
+            set { }
+        }
+
+        public override IDbSet<ToDoFile> ToDoFiles
+        {
+            get { return fakeToDoFiles; }
             set { }
         }
 

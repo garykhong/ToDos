@@ -11,9 +11,9 @@ namespace ToDos.Controllers
     [RequireHttpsForRemoteRequest]
     [Authorize]
     public class ToDoController : Controller
-    {        
+    {
         public ViewResult Index()
-        {            
+        {
             return View("Index", GetSortedToDosByLoggedInUserName());
         }
 
@@ -53,12 +53,12 @@ namespace ToDos.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ToDo toDo, string MaintainFiles)
+        public ActionResult Create(ToDo toDo, string maintainFiles)
         {
             SaveToDoWithLoggedInUserName(toDo);
-            if(MaintainFiles != string.Empty)
+            if (!string.IsNullOrEmpty(maintainFiles))
             {
-                return RedirectToAction("Index", "ToDoFile", new { toDoID = toDo.ID});
+                return RedirectToAction("Index", "ToDoFile", new { toDoID = toDo.ID });
             }
             return RedirectToAction("Index");
         }
@@ -66,7 +66,7 @@ namespace ToDos.Controllers
         private void SaveToDoWithLoggedInUserName(ToDo toDo)
         {
             toDo.UserName = GetLoggedInUserName();
-            if(toDo.ToDoFiles == null)
+            if (toDo.ToDoFiles == null)
             {
                 toDo.ToDoFiles = new List<ToDoFile>();
             }
@@ -82,10 +82,11 @@ namespace ToDos.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "ID,WhatToDo,WhenItWasDone,UserName")]ToDo toDo)
+        public ActionResult Edit(ToDo toDo)
         {
             ResetToDoDBContext();
             ToDoDBContextFactory.Create().SetToDoEntryState(toDo);
+            toDo.ToDoFiles = ToDoDBContextFactory.Create().ToDoFiles.Where(toDoFile => toDoFile.ToDoID == toDo.ID).ToList();            
             ToDoDBContextFactory.Create().SaveChanges();
             return RedirectToAction("Index");
         }
