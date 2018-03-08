@@ -222,9 +222,13 @@
     <Compile Include="Migrations\201803020216173_AddToDoFile.Designer.cs">
       <DependentUpon>201803020216173_AddToDoFile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201803050142577_MakeWhatToDoRequiredToBeFilledIn.cs" />
-    <Compile Include="Migrations\201803050142577_MakeWhatToDoRequiredToBeFilledIn.Designer.cs">
-      <DependentUpon>201803050142577_MakeWhatToDoRequiredToBeFilledIn.cs</DependentUpon>
+    <Compile Include="Migrations\201803050721409_AddBlankCheckOnWhatToDo.cs" />
+    <Compile Include="Migrations\201803050721409_AddBlankCheckOnWhatToDo.Designer.cs">
+      <DependentUpon>201803050721409_AddBlankCheckOnWhatToDo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803050722529_RemoveBlankCheckOnWhatToDo.cs" />
+    <Compile Include="Migrations\201803050722529_RemoveBlankCheckOnWhatToDo.Designer.cs">
+      <DependentUpon>201803050722529_RemoveBlankCheckOnWhatToDo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ToDoFile.cs" />
@@ -1396,8 +1400,11 @@
     <EmbeddedResource Include="Migrations\201803020216173_AddToDoFile.resx">
       <DependentUpon>201803020216173_AddToDoFile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803050142577_MakeWhatToDoRequiredToBeFilledIn.resx">
-      <DependentUpon>201803050142577_MakeWhatToDoRequiredToBeFilledIn.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803050721409_AddBlankCheckOnWhatToDo.resx">
+      <DependentUpon>201803050721409_AddBlankCheckOnWhatToDo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803050722529_RemoveBlankCheckOnWhatToDo.resx">
+      <DependentUpon>201803050722529_RemoveBlankCheckOnWhatToDo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
