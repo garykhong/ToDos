@@ -10,19 +10,27 @@
         <h4>To Do</h4>
         <hr />
         @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.UserName)        
         <div class="form-group">
-            @Html.LabelFor(model => model.WhatToDo, new { @class ="control-label col-md-2"})
+            @Html.LabelFor(model => model.WhatToDo, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.WhatToDo)
             </div>
         </div>
-        
+
         <div class="form-group">
-            @Html.LabelFor(model => model.WhenItWasDone, new { @class ="control-label col-md-2"})
+            @Html.LabelFor(model => model.WhenItWasDone, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.WhenItWasDone, new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.WhenItWasDone)
             </div>
         </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Maintain Files", "Index", "ToDoFile", new { toDoID = Model.ID }, new object())
+            </div>
+        </div>
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

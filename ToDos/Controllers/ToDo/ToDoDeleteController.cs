@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using ToDos.Models;
 using System.Linq;
+using ToDos.Rules;
 
 namespace ToDos.Controllers
 {
@@ -12,19 +13,15 @@ namespace ToDos.Controllers
         }
 
         public ViewResult Index(int? toDoID)
-        {
-            ToDo toDoToBeDeleted = ToDoDBContextFactory.Create().
-                ToDos.Where(toDo => toDo.ID == toDoID).FirstOrDefault();
+        {            
+            ToDo toDoToBeDeleted = new ToDoSelector().GetToDoByLoggedInUserName(toDoID);
             return View("Index", toDoToBeDeleted);
         }
 
         [HttpPost]
         public ActionResult Delete(int toDoID)
         {
-            ToDo toDoToBeDeleted = ToDoDBContextFactory.Create().
-                ToDos.Where(toDo => toDo.ID == toDoID).FirstOrDefault();
-            ToDoDBContextFactory.Create().ToDos.Remove(toDoToBeDeleted);
-            ToDoDBContextFactory.Create().SaveChanges();
+            new ToDoDeletor().DeleteToDo(toDoID);
             return RedirectToAction("Index", "ToDo");
         }
     }

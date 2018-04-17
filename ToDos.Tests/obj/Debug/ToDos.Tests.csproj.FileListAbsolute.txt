@@ -111,3 +111,9 @@ C:\Users\garykhong\Documents\GitHub\ToDos\ToDos.Tests\bin\Debug\Microsoft.Owin.H
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos.Tests\obj\Debug\ToDos.Tests.csprojResolveAssemblyReference.cache
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos.Tests\obj\Debug\ToDos.Tests.dll
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos.Tests\obj\Debug\ToDos.Tests.pdb
+C:\Users\garykhong\Documents\GitHub\ToDos\ToDos.Tests\bin\Debug\System.Web.Http.dll
+C:\Users\garykhong\Documents\GitHub\ToDos\ToDos.Tests\bin\Debug\System.Web.Http.WebHost.dll
+C:\Users\garykhong\Documents\GitHub\ToDos\ToDos.Tests\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\garykhong\Documents\GitHub\ToDos\ToDos.Tests\bin\Debug\System.Web.Http.xml
+C:\Users\garykhong\Documents\GitHub\ToDos\ToDos.Tests\bin\Debug\System.Web.Http.WebHost.xml
+C:\Users\garykhong\Documents\GitHub\ToDos\ToDos.Tests\bin\Debug\System.Net.Http.Formatting.xml

@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using ToDos.Models;
 using Microsoft.AspNet.Identity;
+using ToDos.Rules;
 
 namespace ToDos.Controllers
 {
@@ -17,8 +18,7 @@ namespace ToDos.Controllers
     {
         public ViewResult Index(int? toDoID)
         {
-            ToDo toDo = ToDoDBContextFactory.Create().
-                ToDos.Where(savedToDo => savedToDo.ID == toDoID).FirstOrDefault();
+            ToDo toDo = new ToDoSelector().GetToDoByLoggedInUserName(toDoID);
             return View("Index", toDo);
         }
 
@@ -33,17 +33,18 @@ namespace ToDos.Controllers
                 toDoFile.ContentType = postedFile.ContentType;
                 toDoFile.ToDoID = toDo.ID;
             }
-            
-            ToDoDBContextFactory.Create().ToDos.Where(savedToDo => savedToDo.ID == toDo.ID).FirstOrDefault().ToDoFiles.Add(toDoFile);
+
+            ToDo toDoToUpdate = new ToDoSelector().GetToDoByLoggedInUserName(toDo.ID);
+            toDoToUpdate.ToDoFiles.Add(toDoFile);
             ToDoDBContextFactory.Create().SaveChanges();
 
-            return View("Index", ToDoDBContextFactory.Create().ToDos.Where(savedToDo => savedToDo.ID == toDo.ID).FirstOrDefault());
+            return View("Index", new ToDoSelector().GetToDoByLoggedInUserName(toDo.ID));
         }
 
         [HttpPost]
         public FileResult DownloadFile(int? fileId, ToDo toDo)
         {
-            ToDo toDoThatIsSaved = ToDoDBContextFactory.Create().ToDos.Where(savedToDo => savedToDo.ID == toDo.ID).FirstOrDefault();
+            ToDo toDoThatIsSaved = new ToDoSelector().GetToDoByLoggedInUserName(toDo.ID);
             ToDoFile toDoFile = toDoThatIsSaved.ToDoFiles.Where(file => file.ID == fileId).FirstOrDefault();
             return File(toDoFile.Data, toDoFile.ContentType, toDoFile.Name);
         }
@@ -51,7 +52,7 @@ namespace ToDos.Controllers
         [HttpPost]
         public ActionResult Delete(int toDoFileID, ToDo toDo)
         {
-            ToDo toDoThatIsSaved = ToDoDBContextFactory.Create().ToDos.Where(savedToDo => savedToDo.ID == toDo.ID).FirstOrDefault();
+            ToDo toDoThatIsSaved = new ToDoSelector().GetToDoByLoggedInUserName(toDo.ID);
             ToDoFile toDoFileToBeRemoved = toDoThatIsSaved.ToDoFiles.Where(toDoFile => toDoFile.ID == toDoFileID).FirstOrDefault();
             toDoThatIsSaved.ToDoFiles.Remove(toDoFileToBeRemoved);
             ToDoDBContextFactory.Create().ToDoFiles.Remove(toDoFileToBeRemoved);

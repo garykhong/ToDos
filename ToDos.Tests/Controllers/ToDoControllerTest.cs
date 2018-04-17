@@ -173,6 +173,7 @@ namespace ToDos.Tests.Controllers
         public void Edit_ViewNameIsEdit()
         {
             controller = new ToDoController();
+            toDoID = 2;
             SetToDo();            
             ViewResult result = controller.Edit(toDo.ID);
             Assert.AreEqual("Edit", result.ViewName);

@@ -5,8 +5,12 @@
 }
 
 <h2>Create</h2>
+<script src="~/Scripts/DefaultButtonClicker.js"></script>
+<script type="text/javascript">
+    SetDefaultButtonToBeClickedOnEnterPress("MainForm", "btnCreateToDo")
+</script>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "MainForm" }))
 {
     <div class="form-horizontal">
         <h4>To Do</h4>
@@ -27,7 +31,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" id="btnCreateToDo" value="Create" class="btn btn-success" />
             </div>
         </div>
     </div>

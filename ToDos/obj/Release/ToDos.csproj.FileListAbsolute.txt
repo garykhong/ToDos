@@ -77,10 +77,14 @@ C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\bin\Microsoft.Owin.Security.OAut
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.csprojResolveAssemblyReference.cache
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.Migrations.InitialCreate.resources
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.Migrations.InitialCreate1.resources
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.Migrations.ToDoWhenItWasDoneNullable.resources
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.csproj.GenerateResource.Cache
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.dll
 C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.pdb
+C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.Migrations.AddUserNameToToDo.resources
+C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.Migrations.AddToDoFile.resources
+C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.csprojResolveAssemblyReference.cache
+C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.Migrations.AddBlankCheckOnWhatToDo.resources
+C:\Users\garykhong\Documents\GitHub\ToDos\ToDos\obj\Release\ToDos.Migrations.RemoveBlankCheckOnWhatToDo.resources

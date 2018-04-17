@@ -6,4 +6,7 @@
   <parameter name="ToDoDBContext-Web.config Connection String" description="ToDoDBContext Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\ToDos.mdf;Integrated Security=True" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\garykhong\\Documents\\GitHub\\ToDos\\ToDos\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ToDoDBContext']/@connectionString" />
   </parameter>
+  <parameter name="ToDoDBContext_DatabasePublish-Web.config Connection String" description="ToDoDBContext_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="ToDoDBContext_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\garykhong\\Documents\\GitHub\\ToDos\\ToDos\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ToDoDBContext_DatabasePublish']/@connectionString" />
+  </parameter>
 </parameters>

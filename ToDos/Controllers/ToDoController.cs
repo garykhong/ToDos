@@ -2,9 +2,9 @@
 using System.Web.Mvc;
 using ToDos.Models;
 using System.Linq;
-using Microsoft.AspNet.Identity;
 using ToDos.Controllers.Attributes;
 using System.Collections.Generic;
+using ToDos.Rules;
 
 namespace ToDos.Controllers
 {
@@ -14,18 +14,9 @@ namespace ToDos.Controllers
     {
         public ViewResult Index()
         {
-            return View("Index", GetSortedToDosByLoggedInUserName());
-        }
-
-        private IOrderedQueryable<ToDo> GetSortedToDosByLoggedInUserName()
-        {
-            string userName = GetLoggedInUserName();
-
-            return ToDoDBContextFactory.Create().ToDos.
-                          Where(toDo => toDo.UserName == userName).
-                           OrderBy(toDo => toDo.WhenItWasDone).
-                             ThenByDescending(toDo => toDo.ID);
-        }
+            string userName = new LoggedInUserFinder().GetLoggedInUserName();
+            return View("Index", new ToDoSelector().GetSortedToDosByLoggedInUserName(userName));
+        }        
 
         public ViewResult FilterByWhatToDo(string whatToDoContainsThis)
         {
@@ -34,16 +25,16 @@ namespace ToDos.Controllers
                 return Index();
             }
 
-            var toDosFound = ToDoDBContextFactory.Create().
-                ToDos.Where(toDo => toDo.WhatToDo.ToLower().
-                               Contains(whatToDoContainsThis.ToLower()));
+            string userName = new LoggedInUserFinder().GetLoggedInUserName();
+
+            var toDosFound = new ToDoSelector().GetToDosThatIsLikeWhatToDo(whatToDoContainsThis, userName);
             return View("Index", toDosFound);
         }
 
         public ViewResult Details(int? toDoID)
         {
-            ToDo toDo = ToDoDBContextFactory.Create().
-                                 ToDos.Where(td => td.ID == toDoID).First();
+            
+            ToDo toDo = new ToDoSelector().GetToDoByLoggedInUserName(toDoID);           
             return View("Details", toDo);
         }
 
@@ -55,51 +46,32 @@ namespace ToDos.Controllers
         [HttpPost]
         public ActionResult Create(ToDo toDo, string maintainFiles)
         {
-            SaveToDoWithLoggedInUserName(toDo);
+            new ToDoInserter().SaveToDoWithLoggedInUserName(toDo);
             if (!string.IsNullOrEmpty(maintainFiles))
             {
                 return RedirectToAction("Index", "ToDoFile", new { toDoID = toDo.ID });
             }
             return RedirectToAction("Index");
-        }
-
-        private void SaveToDoWithLoggedInUserName(ToDo toDo)
-        {
-            toDo.UserName = GetLoggedInUserName();
-            if (toDo.ToDoFiles == null)
-            {
-                toDo.ToDoFiles = new List<ToDoFile>();
-            }
-            ToDoDBContextFactory.Create().ToDos.Add(toDo);
-            ToDoDBContextFactory.Create().SaveChanges();
-        }
+        }        
 
         [HttpGet]
         public ViewResult Edit(int? toDoID)
-        {
+        {            
             return View("Edit",
-                ToDoDBContextFactory.Create().ToDos.Find(toDoID));
+                new ToDoSelector().GetToDoByLoggedInUserName(toDoID));
         }
 
         [HttpPost]
         public ActionResult Edit(ToDo toDo)
         {
             ResetToDoDBContext();
-            ToDoDBContextFactory.Create().SetToDoEntryState(toDo);
-            toDo.ToDoFiles = ToDoDBContextFactory.Create().ToDoFiles.Where(toDoFile => toDoFile.ToDoID == toDo.ID).ToList();            
-            ToDoDBContextFactory.Create().SaveChanges();
+            new ToDoUpdater().UpdateToDo(toDo);
             return RedirectToAction("Index");
         }
 
         protected virtual void ResetToDoDBContext()
         {
             ToDoDBContextFactory.SetToDoDBContext(new ToDoDBContext());
-        }
-
-        private string GetLoggedInUserName()
-        {
-            string userName = User == null ? null : User.Identity.GetUserName();
-            return userName;
         }
     }
 }
