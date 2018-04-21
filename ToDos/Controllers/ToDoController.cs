@@ -71,7 +71,7 @@ namespace ToDos.Controllers
 
         protected virtual void ResetToDoDBContext()
         {
-            ToDoDBContextFactory.SetToDoDBContext(new ToDoDBContext());
+            new ToDoDBContextResetter().ResetToDoDBContext();
         }
     }
 }

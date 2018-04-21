@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,7 @@ namespace ToDos.Rules
             }
 
             ToDo toDo = ToDoDBContextFactory.Create().ToDos.
+                           Include(allToDo => allToDo.ToDoFiles).
                             Where(toDoThatMatches => toDoThatMatches.ID == searchableID && 
                                     toDoThatMatches.UserName == userName).FirstOrDefault();
             

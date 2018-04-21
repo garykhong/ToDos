@@ -206,6 +206,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\ToDoFilesController.cs" />
     <Compile Include="Controllers\Api\ToDosController.cs" />
     <Compile Include="Controllers\Attributes\RequireHttpsForRemoteRequest.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -255,6 +256,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\LoggedInUserFinder.cs" />
     <Compile Include="Rules\ToDoDBContextResetter.cs" />
+    <Compile Include="Rules\ToDoFileDeletor.cs" />
+    <Compile Include="Rules\ToDoFileInserter.cs" />
+    <Compile Include="Rules\ToDoFileSelector.cs" />
     <Compile Include="Rules\ToDoUpdater.cs" />
     <Compile Include="Rules\ToDoDeletor.cs" />
     <Compile Include="Rules\ToDoInserter.cs" />
