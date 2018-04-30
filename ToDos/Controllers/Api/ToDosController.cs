@@ -14,32 +14,41 @@ namespace ToDos.Controllers.Api
         // GET: api/ToDos/5
         public IHttpActionResult Get(int id, string userName)
         {
-            return Ok(new ToDoSelector().GetToDo(id, userName));
+            return new HttpApiController(this).
+                 CallGetFunction<ToDo>(() => new ToDoSelector().GetToDo(id, userName));
+
         }
 
         // GET: api/ToDos?userName='jeff'
         public IHttpActionResult Get(string userName)
         {
-            return Ok(new ToDoSelector().GetSortedToDosByLoggedInUserName(userName).ToList());
+            return new HttpApiController(this).
+                CallGetFunction<List<ToDo>>(() => new ToDoSelector().
+                                                       GetSortedToDosByLoggedInUserName(userName).
+                                                        ToList());
         }
 
         // POST: api/ToDos
-        public void Post([FromBody]ToDo toDo)
+        public IHttpActionResult Post([FromBody]ToDo toDo)
         {
-            new ToDoInserter().SaveToDoWithLoggedInUserName(toDo);
+            return new HttpApiController(this).
+                          CallPostAction<ToDo>(() => new ToDoInserter().
+                                                             SaveToDoWithLoggedInUserName(toDo), toDo);            
         }
 
         // PUT: api/ToDos/5
-        public void Put(int id, [FromBody]ToDo toDo)
+        public IHttpActionResult Put(int id, [FromBody]ToDo toDo)
         {
-            new ToDoDBContextResetter().ResetToDoDBContext();
-            new ToDoUpdater().UpdateToDo(toDo);
+            return new HttpApiController(this).
+                            CallPutAction<ToDo>(() => new ToDoUpdater().
+                                                           UpdateToDoWithResetToDoDBContext(toDo), toDo);            
         }
 
         // DELETE: api/ToDos/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            new ToDoDeletor().DeleteToDo(id);
+            return new HttpApiController(this).
+                          CallDeleteAction(() => new ToDoDeletor().DeleteToDo(id));            
         }
     }
 }

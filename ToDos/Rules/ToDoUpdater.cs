@@ -9,6 +9,12 @@ namespace ToDos.Rules
 {
     public class ToDoUpdater
     {
+        public void UpdateToDoWithResetToDoDBContext(ToDo toDo)
+        {
+            new ToDoDBContextResetter().ResetToDoDBContext();
+            new ToDoUpdater().UpdateToDo(toDo);
+        }
+
         public void UpdateToDo(ToDo toDo)
         {
             ToDoDBContextFactory.Create().SetToDoEntryState(toDo);

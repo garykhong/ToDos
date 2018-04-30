@@ -20,22 +20,14 @@ namespace ToDos.Rules
         public void InsertFile(HttpPostedFileBase postedFile, int toDoID, string userName)
         {
             ToDo toDoToUpdate = new ToDoSelector().GetToDo(toDoID, userName);
-            toDoToUpdate.ToDoFiles.Add(GetToDoFile(postedFile, toDoID));
+            toDoToUpdate.ToDoFiles.Add(new ToDoFileSelector().GetToDoFile(postedFile, toDoID));
             ToDoDBContextFactory.Create().SaveChanges();
-        }
+        }        
 
-        private ToDoFile GetToDoFile(HttpPostedFileBase file, int toDoID)
+        public void InsertFile(ToDo toDo, ToDoFile toDoFile)
         {
-            ToDoFile toDoFile = new ToDoFile();
-            using (BinaryReader binaryReader = new BinaryReader(file.InputStream))
-            {
-                toDoFile.Data = binaryReader.ReadBytes(file.ContentLength);
-                toDoFile.Name = Path.GetFileName(file.FileName);
-                toDoFile.ContentType = file.ContentType;
-                toDoFile.ToDoID = toDoID;
-            }
-
-            return toDoFile;
+            toDo.ToDoFiles.Add(toDoFile);
+            ToDoDBContextFactory.Create().SaveChanges();
         }
     }
 }
