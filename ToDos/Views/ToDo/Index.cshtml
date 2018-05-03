@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ToDos.Models.ToDo>
+@using ToDos.Views.HtmlExtensions
 
 @{
     ViewBag.Title = "All To Dos";
@@ -34,7 +35,7 @@
     {
         <tr>
             <td class="col-md-4 wrapText">
-                @Html.DisplayFor(modelItem => item.WhatToDo)
+                @Html.TextAreaDisplayFor(modelItem => item.WhatToDo)
             </td>
             <td class="col-md-4">
                 @Html.DisplayFor(modelItem => item.WhenItWasDone)
