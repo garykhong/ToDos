@@ -4,27 +4,30 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ToDos.Controllers.Attributes;
 using ToDos.Models;
 using ToDos.Rules;
 
 namespace ToDos.Controllers.Api
 {
+    [RequireHttpsForRemoteRequest]
+    [Authorize]
     public class ToDosController : ApiController
     {
         // GET: api/ToDos/5
-        public IHttpActionResult Get(int id, string userName)
+        public IHttpActionResult Get(int id)
         {
             return new HttpApiController(this).
-                 CallGetFunction<ToDo>(() => new ToDoSelector().GetToDo(id, userName));
+                 CallGetFunction<ToDo>(() => new ToDoSelector().GetToDoByLoggedInUserName(id));
 
         }
 
-        // GET: api/ToDos?userName='jeff'
-        public IHttpActionResult Get(string userName)
+        // GET: api/ToDos
+        public IHttpActionResult Get()
         {
             return new HttpApiController(this).
                 CallGetFunction<List<ToDo>>(() => new ToDoSelector().
-                                                       GetSortedToDosByLoggedInUserName(userName).
+                                                       GetSortedToDosByLoggedInUserName(new LoggedInUserFinder().GetLoggedInUserName()).
                                                         ToList());
         }
 

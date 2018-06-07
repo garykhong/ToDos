@@ -11,9 +11,12 @@ using System.Web.Mvc;
 using ToDos.Models;
 using Microsoft.AspNet.Identity;
 using ToDos.Rules;
+using ToDos.Controllers.Attributes;
 
 namespace ToDos.Controllers
 {
+    [RequireHttpsForRemoteRequest]
+    [Authorize]
     public class ToDoFileController : Controller
     {
         public ViewResult Index(int? toDoID)

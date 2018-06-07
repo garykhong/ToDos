@@ -6,30 +6,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using ToDos.Controllers.Attributes;
 using ToDos.Models;
 using ToDos.Rules;
 
 namespace ToDos.Controllers.Api
-{    
+{
+    [RequireHttpsForRemoteRequest]
+    [Authorize]
     public class ToDoFilesController : ApiController
     {
-        [Route("api/ToDos/{toDoID}/{userName}/ToDoFiles/{toDoFileID}")]
-        public IHttpActionResult Get(int toDoID, int toDoFileID, string userName)
+        [Route("api/ToDos/{toDoID}/ToDoFiles/{toDoFileID}")]
+        public IHttpActionResult Get(int toDoID, int toDoFileID)
         {
             return new HttpApiController(this).
                       CallGetFunction(() => new ToDoFileSelector().
-                                                  GetToDoFile(toDoID, toDoFileID, userName));
+                                                  GetToDoFile(toDoID, toDoFileID, 
+                                                     new LoggedInUserFinder().GetLoggedInUserName()));
         }
 
-        [Route("api/ToDoFiles/{toDoID}/{userName}")]
-        public IHttpActionResult Post(int toDoID, string userName)
+        public IHttpActionResult Post(int toDoID)
         {
             HttpFileCollection files = HttpContext.Current.Request.Files;
 
             if (files != null && files.Count > 0)
             {
                 HttpPostedFileBase postedFile = new HttpPostedFileWrapper(files[0]);
-                ToDo toDoToUpdate = new ToDoSelector().GetToDo(toDoID, userName);
+                ToDo toDoToUpdate = new ToDoSelector().GetToDoByLoggedInUserName(toDoID);
                 ToDoFile toDoFileToInsert = new ToDoFileSelector().GetToDoFile(postedFile, toDoID);
                 return new HttpApiController(this).
                                CallPostAction<ToDoFile>(() => new ToDoFileInserter().
@@ -40,11 +43,11 @@ namespace ToDos.Controllers.Api
             return BadRequest();
         }
 
-        public IHttpActionResult Delete(int toDoFileID, int toDoID, string userName)
+        public IHttpActionResult Delete(int toDoFileID)
         {
             return new HttpApiController(this).
                           CallDeleteAction(() => new ToDoFileDeletor().
-                                                        DeleteToDoFile(toDoFileID, toDoID, userName));            
+                                                        DeleteToDoFileByLoggedInUserName(toDoFileID));            
         }
     }
 }
