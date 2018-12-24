@@ -12,10 +12,11 @@
 
 @using (Html.BeginForm("FilterByWhatToDo", "ToDo", FormMethod.Get))
 {
-    <p>
-        What to do: @Html.TextBox("whatToDoContainsThis") 
-        <input type="submit" value="Filter" class="btn btn-success"/>
-    </p>
+<p>
+    What to do: @Html.TextBox("whatToDoContainsThis")
+    <input type="submit" value="Filter" class="btn btn-success" />
+    <input type="button" value="Clear filter" onclick="ClearText('#whatToDoContainsThis')" class="btn btn-success" />
+</p>
 }
 
 <table class="table table-responsive table-striped">
@@ -42,8 +43,8 @@
             </td>
             <td class="col-md-4">
                 @Html.ActionLink("Edit", "Edit", new { toDoID = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { toDoID = item.ID}) |
-                @Html.ActionLink("Delete", "Index", "ToDoDelete", new { toDoID = item.ID}, new object())
+                @Html.ActionLink("Details", "Details", new { toDoID = item.ID }) |
+                @Html.ActionLink("Delete", "Index", "ToDoDelete", new { toDoID = item.ID }, new object())
             </td>
         </tr>
     }

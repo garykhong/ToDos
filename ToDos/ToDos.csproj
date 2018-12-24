@@ -358,6 +358,7 @@
     <Content Include="frontend library\font-awesome\css\font-awesome.min.css" />
     <Content Include="frontend library\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="frontend library\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="Scripts\TextClearer.js" />
     <Content Include="Scripts\DatePickerInitialiser.js" />
     <Content Include="Scripts\DefaultButtonClicker.js" />
     <Content Include="Scripts\FileDownloader.js" />
