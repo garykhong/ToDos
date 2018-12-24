@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -357,7 +358,6 @@
     <Content Include="frontend library\font-awesome\css\font-awesome.min.css" />
     <Content Include="frontend library\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="frontend library\font-awesome\HELP-US-OUT.txt" />
-    <Content Include="frontend library\todo\Date control setup\DatePickerInitialiser.js" />
     <Content Include="Scripts\DatePickerInitialiser.js" />
     <Content Include="Scripts\DefaultButtonClicker.js" />
     <Content Include="Scripts\FileDownloader.js" />
@@ -1342,7 +1342,10 @@
     <Content Include="frontend library\jquery-ui\README.md" />
     <Content Include="frontend library\jquery-ui\ui\.jshintrc" />
     <None Include="bundleconfig.json" />
-    <None Include="Properties\PublishProfiles\MyThingsToDo - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\MyThingsToDo - Web Deploy.pubxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\MyThingsToDoTest - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

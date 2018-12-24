@@ -217,3 +217,11 @@
     left: .5em;
     top: .3em;       
 }
+
+.ui-state-highlight {
+    background-color: lightgrey;
+}
+
+.ui-state-active {
+    background-color: darkgrey;
+}
