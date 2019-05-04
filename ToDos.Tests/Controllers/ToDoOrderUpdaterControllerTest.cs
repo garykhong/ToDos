@@ -25,7 +25,7 @@ namespace ToDos.Tests.Controllers
         public void MovingFirstToDoUpInPriority_HasNoEffectOnOrderID()
         {
             ToDo firstToDo = fakeToDoDBContext.ToDos.First();
-            controller.MoveToDoUpInPriority(firstToDo);
+            controller.MoveToDoUpInPriorityByToDo(firstToDo);
             Assert.AreEqual(1, firstToDo.OrderID);
         }
 
@@ -34,7 +34,7 @@ namespace ToDos.Tests.Controllers
         {
             ToDo firstToDo = fakeToDoDBContext.ToDos.FirstOrDefault();
             ToDo secondToDo = fakeToDoDBContext.ToDos.Where(td => td.OrderID == 2).FirstOrDefault();
-            controller.MoveToDoDownInPriority(firstToDo);
+            controller.MoveToDoDownInPriorityByToDo(firstToDo);
             Assert.AreEqual(2, firstToDo.OrderID);
             Assert.AreEqual(1, secondToDo.OrderID);
         }
@@ -44,7 +44,7 @@ namespace ToDos.Tests.Controllers
         {
             ToDo lastToDo = fakeToDoDBContext.ToDos.Last();
             ToDo secondToDo = fakeToDoDBContext.ToDos.Where(td => td.OrderID == 2).FirstOrDefault();
-            controller.MoveToDoUpInPriority(lastToDo);
+            controller.MoveToDoUpInPriorityByToDo(lastToDo);
             Assert.AreEqual(2, lastToDo.OrderID);
             Assert.AreEqual(3, secondToDo.OrderID);
         }
@@ -53,7 +53,7 @@ namespace ToDos.Tests.Controllers
         public void MovingLastToDoDownInPriority_HasNoEffectOnOrderID()
         {
             ToDo lastToDo = fakeToDoDBContext.ToDos.Last();            
-            controller.MoveToDoDownInPriority(lastToDo);
+            controller.MoveToDoDownInPriorityByToDo(lastToDo);
             Assert.AreEqual(3, lastToDo.OrderID);            
         }
 

@@ -47,11 +47,21 @@ namespace ToDos.Controllers
             }
         }
 
-        public void MoveToDoDownInPriority(ToDo toDo)
+        [HttpPost]
+        public ActionResult MoveToDoDownInPriorityByToDo(ToDo toDo)
         {
+            return MoveToDoDownInPriority(toDo.ID, toDo.UserName);
+        }
+
+        [HttpPost]
+        public ActionResult MoveToDoDownInPriority(int toDoID, string userName)
+        {
+            ToDoSelector toDoSelector = new ToDoSelector();
+            ToDo toDo = toDoSelector.GetToDo(toDoID, userName);
             ToDo nextToDoWithLowerOrderID = new ToDoSelector().
                 GetNextToDoThatIsLowerInPriority(toDo.OrderID, toDo.UserName);
             SwapToDosOrderID(nextToDoWithLowerOrderID, toDo);
+            return RedirectToAction(nameof(Index), "ToDo");
         }
     }
 }

@@ -5,19 +5,6 @@
     ViewBag.Title = "All To Dos";
 }
 
-<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.development.js"></script>
-<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.development.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.MoveUpLink').click(function () {
-            var toDo = JSON.parse($(this).parent().children('.ToDoHidden').val());
-            $.post("/ToDoOrderUpdater/MoveToDoUpInPriorityByToDo", toDo, function (toDoIndexView) {
-                $("html").html(toDoIndexView);
-            });
-        })
-    })
-</script>
 @Html.ActionLink("Create New", "Create")
 
 @using (Html.BeginForm("FilterByWhatToDo", "ToDo", FormMethod.Get))
@@ -30,7 +17,16 @@
 }
 
 <div id="content"></div>
-<script src="@Url.Content("~/Scripts/React/HelloWorld.jsx")"></script>
+
+<style>
+    .ButtonAsLink {
+        background: none !important;
+        color: #157ab5;
+        border: none;
+        padding: 0 !important;
+        font: inherit;        
+    }
+</style>
 
 <table class="table table-responsive table-striped">
     <tr>
@@ -58,14 +54,19 @@
                 @Html.ActionLink("Edit", "Edit", new { toDoID = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { toDoID = item.ID }) |
                 @Html.ActionLink("Delete", "Index", "ToDoDelete", new { toDoID = item.ID }, new object()) |
+                @using (Html.BeginForm("MoveToDoDownInPriority", "ToDoOrderUpdater", FormMethod.Post))
+                {
+                    @Html.Hidden("toDoID", item.ID)
+                    @Html.Hidden("userName", item.UserName)
+                    <input type="submit" value="&#x25B2;" class="ButtonAsLink" />
+                }
+
                 @using (Html.BeginForm("MoveToDoUpInPriority", "ToDoOrderUpdater", FormMethod.Post))
                 {
                     @Html.Hidden("toDoID", item.ID)
                     @Html.Hidden("userName", item.UserName)
-                    <input type="submit" value="&#x25B2;" class="btn" />
-                }
-                <a class="MoveUpLink">&#x25B2;</a>
-                <a class="MoveDownLink">&#x25BC;</a>
+                    <input type="submit" value="&#x25BC;" class="ButtonAsLink" />
+                }                
                 <input type="hidden" class="ToDoHidden" value="@Json.Encode(item)" />
             </td>
         </tr>
