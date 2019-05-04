@@ -74,3 +74,5 @@ Release
 TestResult.xml
 *.VisualState.xml
 Version.cs
+/packages
+/.vs/ToDos/v15/Server/sqlite3

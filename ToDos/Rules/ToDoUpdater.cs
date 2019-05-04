@@ -17,7 +17,7 @@ namespace ToDos.Rules
 
         public void UpdateToDo(ToDo toDo)
         {
-            ToDoDBContextFactory.Create().SetToDoEntryState(toDo);
+            ToDoDBContextFactory.Create().SetToDoEntryState(toDo);            
             toDo.ToDoFiles = ToDoDBContextFactory.Create().ToDoFiles.Where(toDoFile => toDoFile.ToDoID == toDo.ID).ToList();
             ToDoDBContextFactory.Create().SaveChanges();
         }

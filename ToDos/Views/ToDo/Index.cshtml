@@ -5,19 +5,32 @@
     ViewBag.Title = "All To Dos";
 }
 
-<h2>To Dos</h2>
-
-
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.development.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.MoveUpLink').click(function () {
+            var toDo = JSON.parse($(this).parent().children('.ToDoHidden').val());
+            $.post("/ToDoOrderUpdater/MoveToDoUpInPriorityByToDo", toDo, function (toDoIndexView) {
+                $("html").html(toDoIndexView);
+            });
+        })
+    })
+</script>
 @Html.ActionLink("Create New", "Create")
 
 @using (Html.BeginForm("FilterByWhatToDo", "ToDo", FormMethod.Get))
 {
-<p>
-    What to do: @Html.TextBox("whatToDoContainsThis")
-    <input type="submit" value="Filter" class="btn btn-success" />
-    <input type="button" value="Clear filter" onclick="ClearText('#whatToDoContainsThis')" class="btn btn-success" />
-</p>
+    <p>
+        What to do: @Html.TextBox("whatToDoContainsThis")
+        <input type="submit" value="Filter" class="btn btn-success" />
+        <input type="button" value="Clear filter" onclick="ClearText('#whatToDoContainsThis')" class="btn btn-success" />
+    </p>
 }
+
+<div id="content"></div>
+<script src="@Url.Content("~/Scripts/React/HelloWorld.jsx")"></script>
 
 <table class="table table-responsive table-striped">
     <tr>
@@ -44,7 +57,16 @@
             <td class="col-md-4">
                 @Html.ActionLink("Edit", "Edit", new { toDoID = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { toDoID = item.ID }) |
-                @Html.ActionLink("Delete", "Index", "ToDoDelete", new { toDoID = item.ID }, new object())
+                @Html.ActionLink("Delete", "Index", "ToDoDelete", new { toDoID = item.ID }, new object()) |
+                @using (Html.BeginForm("MoveToDoUpInPriority", "ToDoOrderUpdater", FormMethod.Post))
+                {
+                    @Html.Hidden("toDoID", item.ID)
+                    @Html.Hidden("userName", item.UserName)
+                    <input type="submit" value="&#x25B2;" class="btn" />
+                }
+                <a class="MoveUpLink">&#x25B2;</a>
+                <a class="MoveDownLink">&#x25BC;</a>
+                <input type="hidden" class="ToDoHidden" value="@Json.Encode(item)" />
             </td>
         </tr>
     }

@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 
 namespace ToDos.Models
 {
@@ -9,7 +10,7 @@ namespace ToDos.Models
         public virtual IDbSet<ToDoFile> ToDoFiles { get; set; }
         public virtual void SetToDoEntryState(ToDo toDo)
         {
-            Entry(toDo).State = EntityState.Modified;           
+            this.Set<ToDo>().AddOrUpdate(toDo);
         }
     }
 }

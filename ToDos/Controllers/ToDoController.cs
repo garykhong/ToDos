@@ -15,7 +15,7 @@ namespace ToDos.Controllers
         public ViewResult Index()
         {
             string userName = new LoggedInUserFinder().GetLoggedInUserName();
-            return View("Index", new ToDoSelector().GetSortedToDosByLoggedInUserName(userName));
+            return View(nameof(Index), new ToDoSelector().GetSortedToDosByLoggedInUserName(userName));
         }        
 
         public ViewResult FilterByWhatToDo(string whatToDoContainsThis)
@@ -28,19 +28,19 @@ namespace ToDos.Controllers
             string userName = new LoggedInUserFinder().GetLoggedInUserName();
 
             var toDosFound = new ToDoSelector().GetToDosThatIsLikeWhatToDo(whatToDoContainsThis, userName);
-            return View("Index", toDosFound);
+            return View(nameof(Index), toDosFound);
         }
 
         public ViewResult Details(int? toDoID)
         {
             
             ToDo toDo = new ToDoSelector().GetToDoByLoggedInUserName(toDoID);           
-            return View("Details", toDo);
+            return View(nameof(Details), toDo);
         }
 
         public ViewResult Create()
         {
-            return View("Create");
+            return View(nameof(Create));
         }
 
         [HttpPost]
@@ -49,15 +49,15 @@ namespace ToDos.Controllers
             new ToDoInserter().SaveToDoWithLoggedInUserName(toDo);
             if (!string.IsNullOrEmpty(maintainFiles))
             {
-                return RedirectToAction("Index", "ToDoFile", new { toDoID = toDo.ID });
+                return RedirectToAction(nameof(Index), nameof(ToDoFile), new { toDoID = toDo.ID });
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }        
 
         [HttpGet]
         public ViewResult Edit(int? toDoID)
         {            
-            return View("Edit",
+            return View(nameof(Edit),
                 new ToDoSelector().GetToDoByLoggedInUserName(toDoID));
         }
 
@@ -66,7 +66,7 @@ namespace ToDos.Controllers
         {
             ResetToDoDBContext();
             new ToDoUpdater().UpdateToDo(toDo);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         protected virtual void ResetToDoDBContext()

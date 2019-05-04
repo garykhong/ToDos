@@ -13,9 +13,10 @@ namespace ToDos.Models
         [Display(Name = "When it was done")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",
-                       ApplyFormatInEditMode = true)]
+                       ApplyFormatInEditMode = true)]        
         public DateTime? WhenItWasDone { get; set; }
         public string UserName { get; set; }
         public virtual ICollection<ToDoFile> ToDoFiles { get; set; }
+        public int OrderID { get; set; }
     }
 }

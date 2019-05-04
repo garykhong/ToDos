@@ -15,7 +15,7 @@ namespace ToDos.Rules
             return ToDoDBContextFactory.Create().ToDos.
                           Where(toDo => toDo.UserName == userName).
                            OrderBy(toDo => toDo.WhenItWasDone).
-                             ThenByDescending(toDo => toDo.ID);
+                             ThenByDescending(toDo => toDo.OrderID);
         }
 
         public ToDo GetToDoByLoggedInUserName(int? id)
@@ -60,6 +60,22 @@ namespace ToDos.Rules
                            );
 
             return toDosFound;
+        }
+
+        public ToDo GetNextToDoThatIsHigherInPriority(int toDoOrderID, string userName)
+        {
+            ToDo nextToDoThatIsHigherInPriority = ToDoDBContextFactory.Create().
+                ToDos.OrderByDescending(toDo => toDo.OrderID).Where(toDo => toDo.OrderID < toDoOrderID && 
+                                                           toDo.UserName == userName).FirstOrDefault();
+            return nextToDoThatIsHigherInPriority == null ? new ToDo() : nextToDoThatIsHigherInPriority;
+        }
+
+        public ToDo GetNextToDoThatIsLowerInPriority(int toDoOrderID, string userName)
+        {
+            ToDo nextToDoThatIsLowerInPriority = ToDoDBContextFactory.Create().
+                ToDos.OrderBy(toDo => toDo.OrderID).Where(toDo => toDo.OrderID > toDoOrderID &&
+                                                           toDo.UserName == userName).FirstOrDefault();
+            return nextToDoThatIsLowerInPriority == null ? new ToDo() : nextToDoThatIsLowerInPriority;
         }
     }
 }

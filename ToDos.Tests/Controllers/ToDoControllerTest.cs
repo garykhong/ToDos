@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ToDos;
 using ToDos.Controllers;
 using ToDos.Models;
 using System.Data.Entity;
-using System.Collections.ObjectModel;
 
 namespace ToDos.Tests.Controllers
 {
@@ -97,10 +93,10 @@ namespace ToDos.Tests.Controllers
 
         private void SetFakeToDoDBContext()
         {
-            fakeToDoDBContext.ToDos.Add(new ToDo { ID = 1, WhatToDo = "Buy Groceries" });
-            fakeToDoDBContext.ToDos.Add(new ToDo { ID = 2, WhatToDo = "Cook Rice" });
+            fakeToDoDBContext.ToDos.Add(new ToDo { ID = 1, WhatToDo = "Buy Groceries", OrderID = 1 });
+            fakeToDoDBContext.ToDos.Add(new ToDo { ID = 2, WhatToDo = "Cook Rice", OrderID = 2 });
             fakeToDoDBContext.ToDos.Add(new ToDo { ID = 3, WhatToDo = "Buy baby groot",
-                                                     WhenItWasDone = new DateTime(2012, 10, 12) });
+                                                     WhenItWasDone = new DateTime(2012, 10, 12), OrderID = 3 });
             ToDoDBContextFactory.SetToDoDBContext(fakeToDoDBContext);
         }
 
