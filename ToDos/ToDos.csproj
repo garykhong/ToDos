@@ -252,9 +252,9 @@
     <Compile Include="Migrations\201704030314015_InitialCreate.Designer.cs">
       <DependentUpon>201704030314015_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704160559323_InitialCreate1.cs" />
-    <Compile Include="Migrations\201704160559323_InitialCreate1.Designer.cs">
-      <DependentUpon>201704160559323_InitialCreate1.cs</DependentUpon>
+    <Compile Include="Migrations\201704160559323_AddWhenItWasDoneToToDo.cs" />
+    <Compile Include="Migrations\201704160559323_AddWhenItWasDoneToToDo.Designer.cs">
+      <DependentUpon>201704160559323_AddWhenItWasDoneToToDo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201704160624019_ToDoWhenItWasDoneNullable.cs" />
     <Compile Include="Migrations\201704160624019_ToDoWhenItWasDoneNullable.Designer.cs">
@@ -275,6 +275,10 @@
     <Compile Include="Migrations\201803050722529_RemoveBlankCheckOnWhatToDo.cs" />
     <Compile Include="Migrations\201803050722529_RemoveBlankCheckOnWhatToDo.Designer.cs">
       <DependentUpon>201803050722529_RemoveBlankCheckOnWhatToDo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906081006536_UpdateOrderIDForToDo.cs" />
+    <Compile Include="Migrations\201906081006536_UpdateOrderIDForToDo.Designer.cs">
+      <DependentUpon>201906081006536_UpdateOrderIDForToDo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201902121006536_AddOrderIDToDo.cs" />
     <Compile Include="Migrations\201902121006536_AddOrderIDToDo.Designer.cs">
@@ -1379,9 +1383,7 @@
     <Content Include="frontend library\jquery-ui\README.md" />
     <Content Include="frontend library\jquery-ui\ui\.jshintrc" />
     <None Include="bundleconfig.json" />
-    <None Include="Properties\PublishProfiles\MyThingsToDo - Web Deploy.pubxml">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Properties\PublishProfiles\MyThingsToDo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\MyThingsToDoTest - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1457,8 +1459,8 @@
     <EmbeddedResource Include="Migrations\201704030314015_InitialCreate.resx">
       <DependentUpon>201704030314015_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704160559323_InitialCreate1.resx">
-      <DependentUpon>201704160559323_InitialCreate1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704160559323_AddWhenItWasDoneToToDo.resx">
+      <DependentUpon>201704160559323_AddWhenItWasDoneToToDo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704160624019_ToDoWhenItWasDoneNullable.resx">
       <DependentUpon>201704160624019_ToDoWhenItWasDoneNullable.cs</DependentUpon>
@@ -1474,6 +1476,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803050722529_RemoveBlankCheckOnWhatToDo.resx">
       <DependentUpon>201803050722529_RemoveBlankCheckOnWhatToDo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906081006536_UpdateOrderIDForToDo.resx">
+      <DependentUpon>201906081006536_UpdateOrderIDForToDo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902121006536_AddOrderIDToDo.resx">
       <DependentUpon>201902121006536_AddOrderIDToDo.cs</DependentUpon>

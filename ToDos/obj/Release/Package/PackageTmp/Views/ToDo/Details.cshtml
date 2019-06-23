@@ -1,10 +1,9 @@
 ﻿@model ToDos.Models.ToDo
+@using ToDos.Views.HtmlExtensions
 
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
 
 <div>
     <h4>To Do</h4>
@@ -15,7 +14,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.WhatToDo)
+            @Html.TextAreaDisplayFor(model => model.WhatToDo)
         </dd>
     </dl>
     <dl class="dl-horizontal">

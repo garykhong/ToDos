@@ -21,5 +21,22 @@ namespace ToDos.Rules
             toDo.ToDoFiles = ToDoDBContextFactory.Create().ToDoFiles.Where(toDoFile => toDoFile.ToDoID == toDo.ID).ToList();
             ToDoDBContextFactory.Create().SaveChanges();
         }
+
+        public void SwapToDosOrderID(ToDo toDoWithLowerOrderID, ToDo toDoWithHigherOrderID)
+        {
+            if (IsToDoSwappable(toDoWithLowerOrderID) && IsToDoSwappable(toDoWithHigherOrderID))
+            {
+                int lowerOrderID = toDoWithLowerOrderID.OrderID;
+                toDoWithLowerOrderID.OrderID = toDoWithHigherOrderID.OrderID;
+                toDoWithHigherOrderID.OrderID = lowerOrderID;                
+                UpdateToDo(toDoWithLowerOrderID);
+                UpdateToDo(toDoWithHigherOrderID);
+            }
+        }
+
+        private bool IsToDoSwappable(ToDo toDo)
+        {
+            return toDo.OrderID > 0 && toDo.WhenItWasDone == null;
+        }
     }
 }

@@ -12,7 +12,6 @@ namespace ToDos.Tests.Controllers
     {
         private FakeToDoDBContext fakeToDoDBContext = new FakeToDoDBContext();
         ToDoOrderUpdaterController controller;
-        ViewResult toDoOrderUpdaterIndexResult;
 
         [TestInitialize]
         public void SetupDependencies()
@@ -40,21 +39,40 @@ namespace ToDos.Tests.Controllers
         }
 
         [TestMethod]
-        public void MovingLastToDoUpInPriority_HasSwappedOrderID()
+        public void MovingLastDoneToDoUpInPriority_HasNoEffect()
         {
             ToDo lastToDo = fakeToDoDBContext.ToDos.Last();
+            int lastToDoOrderID = lastToDo.OrderID;
             ToDo secondToDo = fakeToDoDBContext.ToDos.Where(td => td.OrderID == 2).FirstOrDefault();
-            controller.MoveToDoUpInPriorityByToDo(lastToDo);
-            Assert.AreEqual(2, lastToDo.OrderID);
-            Assert.AreEqual(3, secondToDo.OrderID);
+            controller.MoveToDoUpInPriorityByToDo(lastToDo);            
+            Assert.AreEqual(lastToDoOrderID, lastToDo.OrderID);
         }
 
         [TestMethod]
         public void MovingLastToDoDownInPriority_HasNoEffectOnOrderID()
         {
-            ToDo lastToDo = fakeToDoDBContext.ToDos.Last();            
+            ToDo lastToDo = fakeToDoDBContext.ToDos.Last();
+            int lastToDoOrderID = lastToDo.OrderID;
             controller.MoveToDoDownInPriorityByToDo(lastToDo);
-            Assert.AreEqual(3, lastToDo.OrderID);            
+            Assert.AreEqual(lastToDoOrderID, lastToDo.OrderID);            
+        }
+
+        [TestMethod]
+        public void MovingDoneToDoDownInPriority_HasNoEffectOnOrderID()
+        {
+            ToDo doneToDo = fakeToDoDBContext.ToDos.Where(td => td.OrderID == 3).FirstOrDefault();
+            int doneToDoOrderID = doneToDo.OrderID;
+            controller.MoveToDoDownInPriorityByToDo(doneToDo);
+            Assert.AreEqual(doneToDoOrderID, doneToDo.OrderID);
+        }
+
+        [TestMethod]
+        public void MovingDoneToDoUpInPriority_HasNoEffectOnOrderID()
+        {
+            ToDo doneToDo = fakeToDoDBContext.ToDos.Where(td => td.OrderID == 3).FirstOrDefault();
+            int doneToDoOrderID = doneToDo.OrderID;
+            controller.MoveToDoUpInPriorityByToDo(doneToDo);
+            Assert.AreEqual(doneToDoOrderID, doneToDo.OrderID);
         }
 
         private void SetFakeToDoDBContext()
@@ -67,6 +85,13 @@ namespace ToDos.Tests.Controllers
                 WhatToDo = "Buy baby groot",
                 WhenItWasDone = new DateTime(2012, 10, 12),
                 OrderID = 3
+            });
+            fakeToDoDBContext.ToDos.Add(new ToDo
+            {
+                ID = 4,
+                WhatToDo = "Clean room",
+                WhenItWasDone = new DateTime(2013, 10, 12),
+                OrderID = 4
             });
             ToDoDBContextFactory.SetToDoDBContext(fakeToDoDBContext);
         }

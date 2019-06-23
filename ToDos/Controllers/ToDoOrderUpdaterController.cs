@@ -31,20 +31,12 @@ namespace ToDos.Controllers
             ToDo nextToDoThatIsHigherInPriority = toDoSelector.
                 GetNextToDoThatIsHigherInPriority(toDo.OrderID, toDo.UserName);
             SwapToDosOrderID(toDo, nextToDoThatIsHigherInPriority);
-            return RedirectToAction(nameof(Index), "ToDo");
+            return RedirectToAction(nameof(Index), nameof(ToDo));
         }
 
         private void SwapToDosOrderID(ToDo toDoWithLowerOrderID, ToDo toDoWithHigherOrderID)
         {
-            if(toDoWithLowerOrderID.OrderID > 0 && toDoWithHigherOrderID.OrderID > 0)
-            {
-                int lowerOrderID = toDoWithLowerOrderID.OrderID;
-                toDoWithLowerOrderID.OrderID = toDoWithHigherOrderID.OrderID;
-                toDoWithHigherOrderID.OrderID = lowerOrderID;
-                ToDoUpdater toDoUpdater = new ToDoUpdater();
-                toDoUpdater.UpdateToDo(toDoWithLowerOrderID);
-                toDoUpdater.UpdateToDo(toDoWithHigherOrderID);
-            }
+            new ToDoUpdater().SwapToDosOrderID(toDoWithLowerOrderID, toDoWithHigherOrderID);
         }
 
         [HttpPost]

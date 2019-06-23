@@ -66,7 +66,8 @@ namespace ToDos.Rules
         {
             ToDo nextToDoThatIsHigherInPriority = ToDoDBContextFactory.Create().
                 ToDos.OrderByDescending(toDo => toDo.OrderID).Where(toDo => toDo.OrderID < toDoOrderID && 
-                                                           toDo.UserName == userName).FirstOrDefault();
+                                                           toDo.UserName == userName &&
+                                                           toDo.WhenItWasDone == null).FirstOrDefault();
             return nextToDoThatIsHigherInPriority == null ? new ToDo() : nextToDoThatIsHigherInPriority;
         }
 
@@ -74,7 +75,8 @@ namespace ToDos.Rules
         {
             ToDo nextToDoThatIsLowerInPriority = ToDoDBContextFactory.Create().
                 ToDos.OrderBy(toDo => toDo.OrderID).Where(toDo => toDo.OrderID > toDoOrderID &&
-                                                           toDo.UserName == userName).FirstOrDefault();
+                                                           toDo.UserName == userName &&
+                                                           toDo.WhenItWasDone == null).FirstOrDefault();
             return nextToDoThatIsLowerInPriority == null ? new ToDo() : nextToDoThatIsLowerInPriority;
         }
     }

@@ -4,7 +4,6 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
 <script src="~/Scripts/DefaultButtonClicker.js"></script>
 <script type="text/javascript">
     SetDefaultButtonToBeClickedOnEnterPress("MainForm", "btnCreateToDo")
@@ -19,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.WhatToDo, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.WhatToDo)
+                @Html.TextAreaFor(model => model.WhatToDo, new { cols = "55", rows = "4" })
             </div>
         </div>
 

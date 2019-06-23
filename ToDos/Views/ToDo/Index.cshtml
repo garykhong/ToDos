@@ -58,16 +58,15 @@
                 {
                     @Html.Hidden("toDoID", item.ID)
                     @Html.Hidden("userName", item.UserName)
-                    <input type="submit" value="&#x25B2;" class="ButtonAsLink" />
+                    <input id="UpButton" type="submit" value="&#x25B2;" class="ButtonAsLink" />
                 }
 
                 @using (Html.BeginForm("MoveToDoUpInPriority", "ToDoOrderUpdater", FormMethod.Post))
                 {
                     @Html.Hidden("toDoID", item.ID)
                     @Html.Hidden("userName", item.UserName)
-                    <input type="submit" value="&#x25BC;" class="ButtonAsLink" />
+                    <input id="DownButton" type="submit" value="&#x25BC;" class="ButtonAsLink" />
                 }                
-                <input type="hidden" class="ToDoHidden" value="@Json.Encode(item)" />
             </td>
         </tr>
     }

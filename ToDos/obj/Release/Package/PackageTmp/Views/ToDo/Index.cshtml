@@ -1,21 +1,32 @@
 ﻿@model IEnumerable<ToDos.Models.ToDo>
+@using ToDos.Views.HtmlExtensions
 
 @{
     ViewBag.Title = "All To Dos";
 }
-
-<h2>To Dos</h2>
-
 
 @Html.ActionLink("Create New", "Create")
 
 @using (Html.BeginForm("FilterByWhatToDo", "ToDo", FormMethod.Get))
 {
     <p>
-        What to do: @Html.TextBox("whatToDoContainsThis") 
-        <input type="submit" value="Filter" class="btn btn-success"/>
+        What to do: @Html.TextBox("whatToDoContainsThis")
+        <input type="submit" value="Filter" class="btn btn-success" />
+        <input type="button" value="Clear filter" onclick="ClearText('#whatToDoContainsThis')" class="btn btn-success" />
     </p>
 }
+
+<div id="content"></div>
+
+<style>
+    .ButtonAsLink {
+        background: none !important;
+        color: #157ab5;
+        border: none;
+        padding: 0 !important;
+        font: inherit;        
+    }
+</style>
 
 <table class="table table-responsive table-striped">
     <tr>
@@ -34,15 +45,28 @@
     {
         <tr>
             <td class="col-md-4 wrapText">
-                @Html.DisplayFor(modelItem => item.WhatToDo)
+                @Html.TextAreaDisplayFor(modelItem => item.WhatToDo)
             </td>
             <td class="col-md-4">
                 @Html.DisplayFor(modelItem => item.WhenItWasDone)
             </td>
             <td class="col-md-4">
                 @Html.ActionLink("Edit", "Edit", new { toDoID = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { toDoID = item.ID}) |
-                @Html.ActionLink("Delete", "Index", "ToDoDelete", new { toDoID = item.ID}, new object())
+                @Html.ActionLink("Details", "Details", new { toDoID = item.ID }) |
+                @Html.ActionLink("Delete", "Index", "ToDoDelete", new { toDoID = item.ID }, new object()) |
+                @using (Html.BeginForm("MoveToDoDownInPriority", "ToDoOrderUpdater", FormMethod.Post))
+                {
+                    @Html.Hidden("toDoID", item.ID)
+                    @Html.Hidden("userName", item.UserName)
+                    <input type="submit" value="&#x25B2;" class="ButtonAsLink" />
+                }
+
+                @using (Html.BeginForm("MoveToDoUpInPriority", "ToDoOrderUpdater", FormMethod.Post))
+                {
+                    @Html.Hidden("toDoID", item.ID)
+                    @Html.Hidden("userName", item.UserName)
+                    <input type="submit" value="&#x25BC;" class="ButtonAsLink" />
+                }                
             </td>
         </tr>
     }

@@ -6,7 +6,7 @@ namespace ToDos.Migrations
     public partial class InitialCreate : DbMigration
     {
         public override void Up()
-        {
+        {            
             CreateTable(
                 "dbo.ToDoes",
                 c => new
