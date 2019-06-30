@@ -236,6 +236,7 @@
     <Compile Include="App_Start\ReactConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\DatabaseMigrator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\HttpApiController.cs" />
@@ -308,6 +309,7 @@
     <Compile Include="Rules\ToDoSelector.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Views\HtmlExtensions\TextAreaLineBreakDisplayer.cs" />
+    <Compile Include="WebConfigUpdater.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -1383,6 +1385,7 @@
     <Content Include="frontend library\jquery-ui\README.md" />
     <Content Include="frontend library\jquery-ui\ui\.jshintrc" />
     <None Include="bundleconfig.json" />
+    <Compile Include="Models\ConnectionStringSelector.cs" />
     <None Include="Properties\PublishProfiles\MyThingsToDo - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\MyThingsToDoTest - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

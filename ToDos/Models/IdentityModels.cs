@@ -21,7 +21,7 @@ namespace ToDos.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base(new ConnectionStringSelector().GetToDoDBContextConnectionString(), throwIfV1Schema: false)
         {
         }
 

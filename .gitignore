@@ -58,6 +58,7 @@ ToDos/obj/Release/Package/PackageTmp/bin/ToDos.dll
 ToDos/App_Data/ToDos.mdf
 *.dll
 ToDos/obj/Release/Package/PackageTmp/Views/Shared/_Layout.cshtml
+.pubxml
 
 /build/
 *.suo
