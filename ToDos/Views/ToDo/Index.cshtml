@@ -26,6 +26,10 @@
         padding: 0 !important;
         font: inherit;        
     }
+
+    .InlineForm {
+        display: inline;
+    }
 </style>
 
 <table class="table table-responsive table-striped">
@@ -54,14 +58,14 @@
                 @Html.ActionLink("Edit", "Edit", new { toDoID = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { toDoID = item.ID }) |
                 @Html.ActionLink("Delete", "Index", "ToDoDelete", new { toDoID = item.ID }, new object()) |
-                @using (Html.BeginForm("MoveToDoDownInPriority", "ToDoOrderUpdater", FormMethod.Post))
+                @using (Html.BeginForm("MoveToDoDownInPriority", "ToDoOrderUpdater", FormMethod.Post, new { @class = "InlineForm" }))
                 {
                     @Html.Hidden("toDoID", item.ID)
                     @Html.Hidden("userName", item.UserName)
                     <input id="UpButton" type="submit" value="&#x25B2;" class="ButtonAsLink" />
                 }
 
-                @using (Html.BeginForm("MoveToDoUpInPriority", "ToDoOrderUpdater", FormMethod.Post))
+                @using (Html.BeginForm("MoveToDoUpInPriority", "ToDoOrderUpdater", FormMethod.Post, new { @class = "InlineForm" }))
                 {
                     @Html.Hidden("toDoID", item.ID)
                     @Html.Hidden("userName", item.UserName)

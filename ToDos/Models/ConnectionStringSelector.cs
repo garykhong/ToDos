@@ -6,8 +6,10 @@ namespace ToDos.Models
     {
         public string GetToDoDBContextConnectionString()
         {
-            string connectionString = WebConfigurationManager.ConnectionStrings[nameof(ToDoDBContext)].ToString();
-            return connectionString;
+            if (WebConfigurationManager.ConnectionStrings[nameof(ToDoDBContext)] == null)
+                return string.Empty;
+
+            return WebConfigurationManager.ConnectionStrings[nameof(ToDoDBContext)].ToString();
         }
     }
 }

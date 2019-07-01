@@ -15,8 +15,11 @@ namespace ToDos.Models
         public virtual IDbSet<ToDo> ToDos { get; set; }
         public virtual IDbSet<ToDoFile> ToDoFiles { get; set; }        
 
-        public ToDoDBContext() : base(new ConnectionStringSelector().GetToDoDBContextConnectionString())
+        public ToDoDBContext()
         {
+            string toDoDBContextConnectionString = new ConnectionStringSelector().GetToDoDBContextConnectionString();
+            if(toDoDBContextConnectionString != string.Empty)
+                base.Database.Connection.ConnectionString = new ConnectionStringSelector().GetToDoDBContextConnectionString();
         }
        
         public virtual void SetToDoEntryState(ToDo toDo)

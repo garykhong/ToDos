@@ -8,7 +8,6 @@ using System.Web.Routing;
 using System.Threading;
 using System.Globalization;
 using System.Web.Http;
-using ToDos.App_Start;
 using System.Data.Entity;
 using ToDos.Models;
 
@@ -23,9 +22,6 @@ namespace ToDos
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //new DatabaseMigrator().SetDatabaseInitialiser();
-            //new DatabaseMigrator().MigrateDatabase();
-            //new WebConfigUpdater().UpdateConnectionStrings();            
         }
     }
 }
