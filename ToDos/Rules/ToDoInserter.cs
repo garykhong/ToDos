@@ -35,14 +35,13 @@ namespace ToDos.Rules
         {
             if (toDo.OrderID == 0)
             {
-                toDo.OrderID = GetMaxToDoOrderID() + 1;
+                toDo.OrderID = GetMaxPlusOneToDoOrderID(toDo.UserName);
             }
         }
 
-        private int GetMaxToDoOrderID()
+        private int GetMaxPlusOneToDoOrderID(string userName)
         {
-            IDbSet<ToDo> toDos = ToDoDBContextFactory.Create().ToDos;
-            return toDos.Count() > 0 ? toDos.Max(td => td.OrderID) : 0;
+            return new ToDoSelector().GetMaxPlusOneToDoOrderID(userName);
         }
 
         private void InsertToDoToDatabase(ToDo toDo)

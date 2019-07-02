@@ -27,6 +27,14 @@
         font: inherit;        
     }
 
+    .TopButtonAsLink {
+        background: none !important;
+        color: #ff0000;
+        border: none;
+        padding: 0 !important;
+        font: inherit;
+    }
+
     .InlineForm {
         display: inline;
     }
@@ -58,6 +66,12 @@
                 @Html.ActionLink("Edit", "Edit", new { toDoID = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { toDoID = item.ID }) |
                 @Html.ActionLink("Delete", "Index", "ToDoDelete", new { toDoID = item.ID }, new object()) |
+                @using (Html.BeginForm("MoveToDoDownToLastInPriority", "ToDoOrderUpdater", FormMethod.Post, new { @class = "InlineForm" }))
+                {
+                    @Html.Hidden("toDoID", item.ID)
+                    @Html.Hidden("userName", item.UserName)
+                    <input id="UpButtonToTopOfToDos" type="submit" value="&#x25B2;" class="TopButtonAsLink" />
+                }
                 @using (Html.BeginForm("MoveToDoDownInPriority", "ToDoOrderUpdater", FormMethod.Post, new { @class = "InlineForm" }))
                 {
                     @Html.Hidden("toDoID", item.ID)
@@ -70,7 +84,7 @@
                     @Html.Hidden("toDoID", item.ID)
                     @Html.Hidden("userName", item.UserName)
                     <input id="DownButton" type="submit" value="&#x25BC;" class="ButtonAsLink" />
-                }                
+                }
             </td>
         </tr>
     }

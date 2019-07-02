@@ -53,7 +53,14 @@ namespace ToDos.Controllers
             ToDo nextToDoWithLowerOrderID = new ToDoSelector().
                 GetNextToDoThatIsLowerInPriority(toDo.OrderID, toDo.UserName);
             SwapToDosOrderID(nextToDoWithLowerOrderID, toDo);
-            return RedirectToAction(nameof(Index), "ToDo");
+            return RedirectToAction(nameof(Index), nameof(ToDo));
+        }
+
+        [HttpPost]
+        public ActionResult MoveToDoDownToLastInPriority(int toDoID, string userName)
+        {
+            new ToDoUpdater().MoveToDoDownToLastInPriorityByToDo(toDoID, userName);
+            return RedirectToAction(nameof(Index), nameof(ToDo));
         }
     }
 }

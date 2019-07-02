@@ -79,5 +79,16 @@ namespace ToDos.Rules
                                                            toDo.WhenItWasDone == null).FirstOrDefault();
             return nextToDoThatIsLowerInPriority == null ? new ToDo() : nextToDoThatIsLowerInPriority;
         }
+
+        public int GetMaxPlusOneToDoOrderID(string userName)
+        {
+            return GetMaxToDoOrderID(userName) + 1;
+        }
+
+        private int GetMaxToDoOrderID(string userName)
+        {
+            List<ToDo> toDos = ToDoDBContextFactory.Create().ToDos.Where(toDo => toDo.UserName == userName).ToList();
+            return toDos.Count() > 0 ? toDos.Max(td => td.OrderID) : 0;
+        }
     }
 }

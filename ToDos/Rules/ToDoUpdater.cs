@@ -38,5 +38,16 @@ namespace ToDos.Rules
         {
             return toDo.OrderID > 0 && toDo.WhenItWasDone == null;
         }
+
+        public void MoveToDoDownToLastInPriorityByToDo(int toDoID, string userName)
+        {
+            ToDoSelector toDoSelector = new ToDoSelector();
+            ToDo toDo = toDoSelector.GetToDo(toDoID, userName);
+            if (new ToDoUpdater().IsToDoSwappable(toDo))
+            {
+                toDo.OrderID = new ToDoSelector().GetMaxPlusOneToDoOrderID(toDo.UserName);
+                new ToDoUpdater().UpdateToDo(toDo);
+            }
+        }
     }
 }
