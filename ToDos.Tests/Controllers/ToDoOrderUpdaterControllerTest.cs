@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
-using System.Web.Mvc;
 using ToDos.Controllers;
 using ToDos.Models;
 
@@ -73,6 +72,22 @@ namespace ToDos.Tests.Controllers
             int doneToDoOrderID = doneToDo.OrderID;
             controller.MoveToDoUpInPriorityByToDo(doneToDo);
             Assert.AreEqual(doneToDoOrderID, doneToDo.OrderID);
+        }
+
+        [TestMethod]
+        public void MovingFirstToDoToLast_HasUpdatedOrderIDToMaxPlusOne()
+        {
+            ToDo firstToDo = fakeToDoDBContext.ToDos.First();
+            controller.MoveToDoDownToLastInPriority(firstToDo.ID, firstToDo.UserName);
+            Assert.AreEqual(5, firstToDo.OrderID);
+        }
+
+        [TestMethod]
+        public void MovingNullToDoToLast_HasNoEffect()
+        {
+            ToDo nullToDo = new ToDo { ID = 0, UserName = null, OrderID = 0 };
+            controller.MoveToDoDownToLastInPriority(nullToDo.ID, nullToDo.UserName);
+            Assert.AreEqual(0, nullToDo.OrderID);
         }
 
         private void SetFakeToDoDBContext()
