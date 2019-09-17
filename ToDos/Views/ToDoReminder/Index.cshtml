@@ -1,0 +1,53 @@
+﻿@model ToDos.Models.ToDo
+@using ToDos.Models
+
+@{
+    ViewBag.Title = "Reminders";
+}
+<p>
+    @Html.ActionLink("Create New", "Create", new { toDoID = Model.ID})
+</p>
+<table class="table table-responsive table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => new ToDoReminder().FirstReminderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => new ToDoReminder().FrequencyType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => new ToDoReminder().IsActive)
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var item in Model.ToDoReminders)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstReminderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FrequencyType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { toDoReminderID = item.ID }) |
+                @using (Html.BeginForm("Delete", "ToDoReminder", FormMethod.Post, new { @class = "InlineForm" }))
+                {
+                    @Html.Hidden("toDoReminderID", item.ID)
+                    <input id="DownButton" type="submit" value="Delete" class="ButtonAsLink" />
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    @Html.ActionLink("Back to To Do", "Edit", "ToDo", new { toDoID = Model.ID }, new object())
+</div>

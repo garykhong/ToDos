@@ -35,10 +35,12 @@
 
     .ui-datepicker .ui-datepicker-prev {
         left: 2px;
+        cursor: pointer;
     }
 
     .ui-datepicker .ui-datepicker-next {
         right: 15px;
+        cursor: pointer;
     }
 
     .ui-datepicker .ui-datepicker-prev-hover {

@@ -12,7 +12,7 @@ namespace ToDos.Rules
         public void DeleteToDoFileByLoggedInUserName(int toDoFileID)
         {
             ToDoFile toDoFile = new ToDoFileSelector().GetToDoFile(toDoFileID);
-            string userName = new LoggedInUserFinder().GetLoggedInUserName();
+            string userName = new LoggedInUserFinder().GetUserName();
             DeleteToDoFile(toDoFileID, toDoFile.ToDoID, userName);
         }
 

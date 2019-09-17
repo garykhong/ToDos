@@ -17,6 +17,13 @@ namespace ToDos.Models
         public DateTime? WhenItWasDone { get; set; }
         public string UserName { get; set; }
         public virtual ICollection<ToDoFile> ToDoFiles { get; set; }
+        public virtual ICollection<ToDoReminder> ToDoReminders { get; set; }
         public int OrderID { get; set; }
+
+        public ToDo()
+        {
+            ToDoFiles = new List<ToDoFile>();
+            ToDoReminders = new List<ToDoReminder>();
+        }
     }
 }

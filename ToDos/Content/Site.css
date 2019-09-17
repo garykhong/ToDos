@@ -22,3 +22,23 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.ButtonAsLink {
+    background: none !important;
+    color: #157ab5;
+    border: none;
+    padding: 0 !important;
+    font: inherit;
+}
+
+.TopButtonAsLink {
+    background: none !important;
+    color: #ff0000;
+    border: none;
+    padding: 0 !important;
+    font: inherit;
+}
+
+.InlineForm {
+    display: inline;
+}

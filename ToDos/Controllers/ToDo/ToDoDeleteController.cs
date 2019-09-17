@@ -7,22 +7,24 @@ using ToDos.Rules;
 namespace ToDos.Controllers
 {
     public class ToDoDeleteController : Controller
-    {        
+    {
+        private UserFinder loggedInUserFinder;
+
         public ToDoDeleteController()
         {
+            this.loggedInUserFinder = new LoggedInUserFinder();
         }
 
-        public ViewResult Index(int? toDoID)
-        {            
-            ToDo toDoToBeDeleted = new ToDoSelector().GetToDoByLoggedInUserName(toDoID);
-            return View("Index", toDoToBeDeleted);
-        }
+        public ToDoDeleteController(UserFinder loggedInUserFinder)
+        {
+            this.loggedInUserFinder = loggedInUserFinder;
+        }        
 
         [HttpPost]
         public ActionResult Delete(int toDoID)
         {
             new ToDoDeletor().DeleteToDo(toDoID);
-            return RedirectToAction("Index", "ToDo");
+            return RedirectToAction(nameof(ToDoController.Index), nameof(ToDo));
         }
     }
 }

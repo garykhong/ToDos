@@ -88,12 +88,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\FakeLoggedInUserFinder.cs" />
+    <Compile Include="Controllers\FakeToDoDBContextSelector.cs" />
     <Compile Include="Controllers\FakeToDoDbSet.cs" />
     <Compile Include="Controllers\FakeToDoDBContext.cs" />
+    <Compile Include="Controllers\FakeToDoReminderDbSet.cs" />
     <Compile Include="Controllers\FakeToDoFileDbSet.cs" />
     <Compile Include="Controllers\MockToDoController.cs" />
     <Compile Include="Controllers\ToDoControllerTest.cs" />
     <Compile Include="Controllers\ToDoDeleteControllerTest.cs" />
+    <Compile Include="Controllers\ToDoReminderControllerTest.cs" />
     <Compile Include="Controllers\ToDoOrderUpdaterControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />

@@ -13,7 +13,8 @@ namespace ToDos.Models
     public class ToDoDBContext : DbContext
     {
         public virtual IDbSet<ToDo> ToDos { get; set; }
-        public virtual IDbSet<ToDoFile> ToDoFiles { get; set; }        
+        public virtual IDbSet<ToDoFile> ToDoFiles { get; set; }
+        public virtual IDbSet<ToDoReminder> ToDoReminders { get; set; }
 
         public ToDoDBContext()
         {
@@ -25,6 +26,11 @@ namespace ToDos.Models
         public virtual void SetToDoEntryState(ToDo toDo)
         {
             this.Set<ToDo>().AddOrUpdate(toDo);
+        }
+
+        public virtual void SetToDoReminderEntryState(ToDoReminder toDoReminder)
+        {
+            this.Set<ToDoReminder>().AddOrUpdate(toDoReminder);
         }
     }
 

@@ -22,7 +22,7 @@ namespace ToDos.Controllers.Api
             return new HttpApiController(this).
                       CallGetFunction(() => new ToDoFileSelector().
                                                   GetToDoFile(toDoID, toDoFileID, 
-                                                     new LoggedInUserFinder().GetLoggedInUserName()));
+                                                     new LoggedInUserFinder().GetUserName()));
         }
 
         public IHttpActionResult Post(int toDoID)

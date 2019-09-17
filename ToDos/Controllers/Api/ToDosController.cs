@@ -27,7 +27,7 @@ namespace ToDos.Controllers.Api
         {
             return new HttpApiController(this).
                 CallGetFunction<List<ToDo>>(() => new ToDoSelector().
-                                                       GetSortedToDosByLoggedInUserName(new LoggedInUserFinder().GetLoggedInUserName()).
+                                                       GetSortedToDosByLoggedInUserName(new LoggedInUserFinder().GetUserName()).
                                                         ToList());
         }
 

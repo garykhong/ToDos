@@ -12,3 +12,10 @@ function SetDefaultButtonToBeClickedOnEnterPress(formID, buttonID) {
         });
     });
 }
+
+function ClickButton(buttonID) {
+    $(document).ready(function () {
+        $("#" + buttonID).click();
+        return false;
+    });
+}

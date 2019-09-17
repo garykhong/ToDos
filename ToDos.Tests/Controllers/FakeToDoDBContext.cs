@@ -10,12 +10,14 @@ namespace ToDos.Tests.Controllers
     {
         private IDbSet<ToDo> fakeToDos = new FakeToDoDbSet<ToDo>();
         private IDbSet<ToDoFile> fakeToDoFiles = new FakeToDoFileDbSet<ToDoFile>();
+        private IDbSet<ToDoReminder> fakeToDoReminders = new FakeToDoReminderDbSet<ToDoReminder>();
         private EntityState fakeToDoEntryState = EntityState.Unchanged;
 
         public FakeToDoDBContext()
         {
             base.ToDos = fakeToDos;
             base.ToDoFiles = fakeToDoFiles;
+            base.ToDoReminders = fakeToDoReminders;
             SaveChangesWasCalled = false;
         }
 
@@ -28,6 +30,12 @@ namespace ToDos.Tests.Controllers
         public override IDbSet<ToDoFile> ToDoFiles
         {
             get { return fakeToDoFiles; }
+            set { }
+        }
+
+        public override IDbSet<ToDoReminder> ToDoReminders
+        {
+            get { return fakeToDoReminders; }
             set { }
         }
 

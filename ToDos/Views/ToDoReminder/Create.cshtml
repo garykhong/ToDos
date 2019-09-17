@@ -1,0 +1,52 @@
+﻿@model ToDos.Models.ToDoReminder
+@using ToDos.Rules
+
+@{
+    ViewBag.Title = "Create Reminder";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Create Reminder</h4>
+        <hr />     
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstReminderDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstReminderDate)
+                @Html.ValidationMessageFor(model => model.FirstReminderDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FrequencyType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.FrequencyType, new FrequencyTypeSelector().GetFrequencyTypes())
+                @Html.ValidationMessageFor(model => model.FrequencyType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsActive)
+                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+    <div>
+        @Html.ActionLink("Back to Reminders", "Index", "ToDoReminder", new { toDoID = Model.ToDoID }, new object())
+    </div>

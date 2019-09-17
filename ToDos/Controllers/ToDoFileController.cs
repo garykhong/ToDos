@@ -19,15 +19,23 @@ namespace ToDos.Controllers
     [Authorize]
     public class ToDoFileController : Controller
     {
-        public ViewResult Index(int? toDoID)
+        public ViewResult Index(ToDo toDo)
         {
-            ToDo toDo = new ToDoSelector().GetToDoByLoggedInUserName(toDoID);
-            return View(nameof(Index), toDo);
+            ToDo toDoToUseAsModel = GetToDoToUseAsModel(toDo);
+
+            return View(nameof(Index), toDoToUseAsModel);
+        }
+
+        private ToDo GetToDoToUseAsModel(ToDo toDo)
+        {
+            return new ToDoSelector().GetToDoToUseAsModel(toDo);
         }
 
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase postedFile, ToDo toDo)
         {
+            if (toDo.ID == 0)
+                new ToDoInserter().SaveToDoWithLoggedInUserName(toDo);
             new ToDoFileInserter().InsertFileByLoggedInUserName(postedFile, toDo.ID);
             return View(nameof(Index), new ToDoSelector().GetToDoByLoggedInUserName(toDo.ID));
         }

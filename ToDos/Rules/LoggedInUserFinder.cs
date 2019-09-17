@@ -7,12 +7,17 @@ using System.Web;
 
 namespace ToDos.Rules
 {
-    public class LoggedInUserFinder
+    public class LoggedInUserFinder : UserFinder
     {
-        public string GetLoggedInUserName()
+        public string GetUserName()
         {
             string userName = HttpContext.Current == null ? null : HttpContext.Current.User.Identity.Name;
             return userName;
         }
+    }
+
+    public interface UserFinder
+    {
+        string GetUserName();
     }
 }

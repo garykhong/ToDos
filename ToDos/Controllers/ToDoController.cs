@@ -12,9 +12,24 @@ namespace ToDos.Controllers
     [Authorize]
     public class ToDoController : Controller
     {
+        public const string MaintainFiles = "Maintain files";
+        public const string MaintainReminders = "Maintain reminders";
+        private UserFinder loggedInUserFinder;
+
+        public ToDoController()
+        {
+            this.loggedInUserFinder = new LoggedInUserFinder();
+        }
+
+        public ToDoController(UserFinder loggedInUserFinder)
+        {
+            this.loggedInUserFinder = loggedInUserFinder;
+        }
+
         public ViewResult Index()
         {
-            string userName = new LoggedInUserFinder().GetLoggedInUserName();
+            string userName = loggedInUserFinder.GetUserName();
+            new ToDoReminderController().MoveDueToDosToLastPriority();
             return View(nameof(Index), new ToDoSelector().GetSortedToDosByLoggedInUserName(userName));
         }        
 
@@ -25,40 +40,40 @@ namespace ToDos.Controllers
                 return Index();
             }
 
-            string userName = new LoggedInUserFinder().GetLoggedInUserName();
+            string userName = loggedInUserFinder.GetUserName();
 
             var toDosFound = new ToDoSelector().GetToDosThatIsLikeWhatToDo(whatToDoContainsThis, userName);
             return View(nameof(Index), toDosFound);
-        }
-
-        public ViewResult Details(int? toDoID)
-        {
-            
-            ToDo toDo = new ToDoSelector().GetToDoByLoggedInUserName(toDoID);           
-            return View(nameof(Details), toDo);
-        }
+        }        
 
         public ViewResult Create()
         {
-            return View(nameof(Create));
+            return View(nameof(Create), new ToDo());
         }
 
         [HttpPost]
-        public ActionResult Create(ToDo toDo, string maintainFiles)
-        {
-            new ToDoInserter().SaveToDoWithLoggedInUserName(toDo);
-            if (!string.IsNullOrEmpty(maintainFiles))
+        public ActionResult Create(ToDo toDo, string maintainToDoChild)
+        {            
+            switch(maintainToDoChild)
             {
-                return RedirectToAction(nameof(Index), nameof(ToDoFile), new { toDoID = toDo.ID });
+                case MaintainFiles:
+                    return RedirectToAction(nameof(ToDoFileController.Index), nameof(ToDoFile), toDo);
+                case MaintainReminders:
+                    return RedirectToAction(nameof(ToDoReminderController.Index), nameof(ToDoReminder), new { toDoID = toDo.ID });
+                default:
+                    new ToDoInserter().SaveToDoWithLoggedInUserName(toDo);
+                    return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
-        }        
+        }
 
         [HttpGet]
-        public ViewResult Edit(int? toDoID)
-        {            
+        public ActionResult Edit(int? toDoID)
+        {
+            if (toDoID == null || toDoID == 0)
+                return RedirectToAction(nameof(this.Create));
+
             return View(nameof(Edit),
-                new ToDoSelector().GetToDoByLoggedInUserName(toDoID));
+                new ToDoSelector().GetToDo(toDoID, loggedInUserFinder.GetUserName()));
         }
 
         [HttpPost]

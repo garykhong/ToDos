@@ -19,6 +19,7 @@ namespace ToDos.Rules
         {
             ToDoDBContextFactory.Create().SetToDoEntryState(toDo);            
             toDo.ToDoFiles = ToDoDBContextFactory.Create().ToDoFiles.Where(toDoFile => toDoFile.ToDoID == toDo.ID).ToList();
+            toDo.ToDoReminders = ToDoDBContextFactory.Create().ToDoReminders.Where(toDoReminder => toDoReminder.ToDoID == toDo.ID).ToList();
             ToDoDBContextFactory.Create().SaveChanges();
         }
 

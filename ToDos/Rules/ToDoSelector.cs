@@ -10,6 +10,8 @@ namespace ToDos.Rules
 {
     public class ToDoSelector
     {
+        public const string UserIsNotAllowedToViewThisToDo = "User is not allowed to view this to do.";
+
         public IOrderedQueryable<ToDo> GetSortedToDosByLoggedInUserName(string userName)
         {
             return ToDoDBContextFactory.Create().ToDos.
@@ -18,9 +20,20 @@ namespace ToDos.Rules
                              ThenByDescending(toDo => toDo.OrderID);
         }
 
+        public List<ToDo> GetToDosDueToday(string userName, DateTime todaysDate)
+        {
+            List<ToDo> toDosDueToday = new List<ToDo>();
+            foreach(ToDoReminder toDoReminder in new ToDoReminderSelector().GetToDoRemindersDueToday(userName, todaysDate))
+            {
+                toDosDueToday.Add(toDoReminder.ToDo);
+            }
+
+            return toDosDueToday;
+        }
+
         public ToDo GetToDoByLoggedInUserName(int? id)
         {
-            string userName = new LoggedInUserFinder().GetLoggedInUserName();
+            string userName = new LoggedInUserFinder().GetUserName();
             return GetToDo(id, userName);
         }
 
@@ -28,9 +41,13 @@ namespace ToDos.Rules
         {
             int searchableID = 0;
 
-            if(id != null)
+            if(id.HasValue && id > 0)
             {
                 searchableID = (int)id;
+            }
+            else
+            {
+                return new ToDo();
             }
 
             ToDo toDo = ToDoDBContextFactory.Create().ToDos.
@@ -41,13 +58,13 @@ namespace ToDos.Rules
 
             if(toDo == null)
             {
-                throw new Exception("User is not allowed to view this to do.");
+                throw new Exception(UserIsNotAllowedToViewThisToDo);
             }
 
             if (toDo.ToDoFiles == null)
             {
                 toDo.ToDoFiles = new List<ToDoFile>();
-            }
+            }            
 
             return toDo;            
         }
@@ -89,6 +106,14 @@ namespace ToDos.Rules
         {
             List<ToDo> toDos = ToDoDBContextFactory.Create().ToDos.Where(toDo => toDo.UserName == userName).ToList();
             return toDos.Count() > 0 ? toDos.Max(td => td.OrderID) : 0;
+        }
+
+        public ToDo GetToDoToUseAsModel(ToDo toDo)
+        {
+            ToDo toDoToUseAsModel = toDo;
+            if (string.IsNullOrEmpty(toDo.UserName))
+                toDoToUseAsModel = GetToDoByLoggedInUserName(toDo.ID);
+            return toDoToUseAsModel;
         }
     }
 }

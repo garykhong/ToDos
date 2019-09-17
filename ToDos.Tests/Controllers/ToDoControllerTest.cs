@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ToDos.Controllers;
 using ToDos.Models;
 using System.Data.Entity;
+using ToDos.Rules;
 
 namespace ToDos.Tests.Controllers
 {
@@ -23,15 +24,20 @@ namespace ToDos.Tests.Controllers
         [TestInitialize]
         public void SetupDependencies()
         {
-            controller = new ToDoController();
+            SetToDoController();
             SetFakeToDoDBContext();
+        }
+
+        private void SetToDoController()
+        {
+            controller = new ToDoController(new FakeLoggedInUserFinder());
         }
 
         [TestMethod]
         public void Index_ViewNameIsIndex()
         {
             SetToDoIndexResult();
-            Assert.AreEqual("Index", toDoIndexResult.ViewName);
+            Assert.AreEqual(nameof(ToDoController.Index), toDoIndexResult.ViewName);
         }
 
         [TestMethod]
@@ -68,67 +74,30 @@ namespace ToDos.Tests.Controllers
         {
             toDoIndexResult = controller.Index() as ViewResult;
         }
-        
-        [TestMethod]
-        public void Details_FirstToDoHasExpectedWhatToDo()
-        {
-            toDoID = 1;
-            expectedWhatToDo = "Buy Groceries";
-            TestToDoDetailsResult();
-        }
-
-        [TestMethod]
-        public void Details_SecondToDoHasExpectedWhatToDo()
-        {
-            toDoID = 2;
-            expectedWhatToDo = "Cook Rice";
-            TestToDoDetailsResult();
-        }
-
-        private void TestToDoDetailsResult()
-        {
-            SetToDoControllerDetailsResult();
-            AssertToDoDetailsResult();
-        }
 
         private void SetFakeToDoDBContext()
         {
-            fakeToDoDBContext.ToDos.Add(new ToDo { ID = 1, WhatToDo = "Buy Groceries", OrderID = 1 });
-            fakeToDoDBContext.ToDos.Add(new ToDo { ID = 2, WhatToDo = "Cook Rice", OrderID = 2 });
-            fakeToDoDBContext.ToDos.Add(new ToDo { ID = 3, WhatToDo = "Buy baby groot",
-                                                     WhenItWasDone = new DateTime(2012, 10, 12), OrderID = 3 });
-            ToDoDBContextFactory.SetToDoDBContext(fakeToDoDBContext);
-        }
-
-        private void SetToDoControllerDetailsResult()
-        {
-            toDoDetailsResult = controller.Details(toDoID) as ViewResult;
-        }
-
-        private void AssertToDoDetailsResult()
-        {
-            ToDo toDo = (ToDo)toDoDetailsResult.ViewData.Model;
-            Assert.AreEqual(expectedWhatToDo, toDo.WhatToDo);
-            Assert.AreEqual("Details", toDoDetailsResult.ViewName);
+            fakeToDoDBContext = new FakeToDoDBContextSelector().GetFakeToDoDBContextAfterSettingToDoDBContext();
         }
 
         [TestMethod]
         public void Create_ViewNameIsCreate()
         {
             ViewResult toDoCreateResult = controller.Create() as ViewResult;
-            Assert.AreEqual(toDoCreateResult.ViewName, "Create");
-            Assert.AreEqual(null, toDoCreateResult.Model);           
+            Assert.AreEqual(toDoCreateResult.ViewName, nameof(ToDoController.Create));
+            Assert.AreNotEqual(null, toDoCreateResult.Model);           
         }
 
         [TestMethod]
         public void Create_OneToDoIsCreatedModelToDosIncreaseByOne()
         {
             toDoID = 3;
+            int expectedToDoID = fakeToDoDBContext.ToDos.Last().ID + 1;
             SetToDo();
-            SetToDoCreateResult();
+            SetToDoCreateResult();            
             RedirectToRouteResult routeResult = toDoCreateResult as RedirectToRouteResult;            
-            Assert.AreEqual(4, fakeToDoDBContext.ToDos.Count());
-            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
+            Assert.AreEqual(expectedToDoID, fakeToDoDBContext.ToDos.Count());
+            Assert.AreEqual(routeResult.RouteValues[ParameterName.actionParameterName], nameof(ToDoController.Index));
         }
 
         [TestMethod]
@@ -167,19 +136,17 @@ namespace ToDos.Tests.Controllers
 
         [TestMethod]
         public void Edit_ViewNameIsEdit()
-        {
-            controller = new ToDoController();
+        {            
             toDoID = 2;
             SetToDo();            
-            ViewResult result = controller.Edit(toDo.ID);
-            Assert.AreEqual("Edit", result.ViewName);
+            ViewResult result = (ViewResult)controller.Edit(toDo.ID);
+            Assert.AreEqual(nameof(ToDoController.Edit), result.ViewName);
         }
 
         [TestMethod]
         public void Edit_RequestToEditToDo_IsFound()
-        {
-            controller = new ToDoController();            
-            ViewResult result = controller.Edit(fakeToDoDBContext.ToDos.First().ID);
+        {                    
+            ViewResult result = (ViewResult)controller.Edit(fakeToDoDBContext.ToDos.First().ID);
             Assert.AreEqual(fakeToDoDBContext.ToDos.First().WhatToDo, ((ToDo)result.Model).WhatToDo);
         }
 
@@ -190,7 +157,7 @@ namespace ToDos.Tests.Controllers
             fakeToDoDBContext.ToDos.First().WhatToDo = "Buy candy";
             RedirectToRouteResult result = controller.Edit(fakeToDoDBContext.ToDos.First()) as RedirectToRouteResult;
             
-            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual(nameof(ToDoController.Index), result.RouteValues[ParameterName.actionParameterName]);
             Assert.AreEqual(true, fakeToDoDBContext.SaveChangesWasCalled);
             Assert.AreEqual(EntityState.Modified, fakeToDoDBContext.GetFakeToDoEntryState());
         }

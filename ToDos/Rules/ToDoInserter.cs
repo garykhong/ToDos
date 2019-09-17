@@ -14,13 +14,14 @@ namespace ToDos.Rules
         {
             SetUserName(toDo);
             SetToDoFiles(toDo);
+            SetToDoReminders(toDo);
             SetOrderID(toDo);
             InsertToDoToDatabase(toDo);
         }
 
         private void SetUserName(ToDo toDo)
         {
-            toDo.UserName = new LoggedInUserFinder().GetLoggedInUserName();
+            toDo.UserName = new LoggedInUserFinder().GetUserName();
         }
 
         private void SetToDoFiles(ToDo toDo)
@@ -28,6 +29,14 @@ namespace ToDos.Rules
             if (toDo.ToDoFiles == null)
             {
                 toDo.ToDoFiles = new List<ToDoFile>();
+            }
+        }
+
+        private void SetToDoReminders(ToDo toDo)
+        {
+            if (toDo.ToDoReminders == null)
+            {
+                toDo.ToDoReminders = new List<ToDoReminder>();
             }
         }
 

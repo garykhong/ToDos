@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using ToDos.Controllers;
 using ToDos.Models;
+using ToDos.Rules;
 
 namespace ToDos.Tests.Controllers
 {
@@ -92,23 +93,7 @@ namespace ToDos.Tests.Controllers
 
         private void SetFakeToDoDBContext()
         {
-            fakeToDoDBContext.ToDos.Add(new ToDo { ID = 1, WhatToDo = "Buy Groceries", OrderID = 1 });
-            fakeToDoDBContext.ToDos.Add(new ToDo { ID = 2, WhatToDo = "Cook Rice", OrderID = 2 });
-            fakeToDoDBContext.ToDos.Add(new ToDo
-            {
-                ID = 3,
-                WhatToDo = "Buy baby groot",
-                WhenItWasDone = new DateTime(2012, 10, 12),
-                OrderID = 3
-            });
-            fakeToDoDBContext.ToDos.Add(new ToDo
-            {
-                ID = 4,
-                WhatToDo = "Clean room",
-                WhenItWasDone = new DateTime(2013, 10, 12),
-                OrderID = 4
-            });
-            ToDoDBContextFactory.SetToDoDBContext(fakeToDoDBContext);
+            fakeToDoDBContext = new FakeToDoDBContextSelector().GetFakeToDoDBContextAfterSettingToDoDBContext();
         }
 
     }

@@ -18,28 +18,6 @@
 
 <div id="content"></div>
 
-<style>
-    .ButtonAsLink {
-        background: none !important;
-        color: #157ab5;
-        border: none;
-        padding: 0 !important;
-        font: inherit;        
-    }
-
-    .TopButtonAsLink {
-        background: none !important;
-        color: #ff0000;
-        border: none;
-        padding: 0 !important;
-        font: inherit;
-    }
-
-    .InlineForm {
-        display: inline;
-    }
-</style>
-
 <table class="table table-responsive table-striped">
     <tr>
         <th>
@@ -64,8 +42,11 @@
             </td>
             <td class="col-md-4">
                 @Html.ActionLink("Edit", "Edit", new { toDoID = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { toDoID = item.ID }) |
-                @Html.ActionLink("Delete", "Index", "ToDoDelete", new { toDoID = item.ID }, new object()) |
+                @using (Html.BeginForm("Delete", "ToDoDelete", FormMethod.Post, new { @class = "InlineForm" }))
+                {
+                    @Html.Hidden("toDoID", item.ID)
+                    <input id="DownButton" type="submit" value="Delete" class="ButtonAsLink" />
+                } |
                 @using (Html.BeginForm("MoveToDoDownToLastInPriority", "ToDoOrderUpdater", FormMethod.Post, new { @class = "InlineForm" }))
                 {
                     @Html.Hidden("toDoID", item.ID)
