@@ -39,10 +39,10 @@ namespace ToDos.Models
         public override void InitializeDatabase(ToDoDBContext context)
         {
             SetContextConnectionString(context);
-            base.InitializeDatabase(context);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ToDoDBContext, Migrations.Configuration>());            
         }
 
-        private static void SetContextConnectionString(ToDoDBContext context)
+        private void SetContextConnectionString(ToDoDBContext context)
         {
             context.Database.Connection.ConnectionString = new ConnectionStringSelector().GetToDoDBContextConnectionString();
         }
