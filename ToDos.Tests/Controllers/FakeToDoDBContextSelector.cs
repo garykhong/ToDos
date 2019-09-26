@@ -46,6 +46,16 @@ namespace ToDos.Tests.Controllers
                 ToDo = GetFirstToDo()
             });
 
+            fakeToDoDBContext.ToDoReminders.Add(new ToDoReminder
+            {
+                ToDoID = 1,
+                ID = 2,
+                FirstReminderDate = new DateTime(2019, 9, 26, 10, 30, 15),
+                FrequencyType = FrequencyType.Yearly.ToString(),
+                IsActive = true,
+                ToDo = GetFirstToDo()
+            });
+
             ToDoDBContextFactory.SetToDoDBContext(fakeToDoDBContext);
 
             return fakeToDoDBContext;

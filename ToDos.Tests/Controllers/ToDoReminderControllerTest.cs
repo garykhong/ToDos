@@ -46,6 +46,15 @@ namespace ToDos.Tests.Controllers
         }
 
         [TestMethod]
+        public void DueDateForFirstToDoSecondReminder_MovesFirstToDoToLast()
+        {
+            ToDo firstToDo = fakeToDoDBContext.ToDos.First();
+            todaysDate = new DateTime(2020, 9, 26, 5, 30, 23);
+            controller.MoveDueToDosToLastPriority(firstToDo.UserName, todaysDate);
+            Assert.AreEqual(5, firstToDo.OrderID);
+        }
+
+        [TestMethod]
         public void DueDateForNoToDo_DoesNotMoveFirstToDoTo()
         {
             ToDo firstToDo = fakeToDoDBContext.ToDos.First();

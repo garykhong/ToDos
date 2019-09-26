@@ -35,7 +35,7 @@ namespace ToDos.Rules
                 toDoReminderDueDate = GetNextReminderDueDate(toDoReminderDueDate, toDoReminder.FrequencyType);
             }
 
-            return toDoReminderDueDate == todaysDate;
+            return toDoReminderDueDate.Date == todaysDate.Date;
         }
 
         private DateTime GetNextReminderDueDate(DateTime toDoReminderDueDate, string frequencyType)

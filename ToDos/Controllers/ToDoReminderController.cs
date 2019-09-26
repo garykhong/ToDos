@@ -57,12 +57,14 @@ namespace ToDos.Controllers
 
         private ToDoReminder GetNewToDoReminder(int? toDoID)
         {
-            return new ToDoReminder { FirstReminderDate = DateTime.Today, ToDoID = (int)toDoID };
+            return new ToDoReminder { FirstReminderDate = new DateSelector().GetTodaysDateInAustraliaAtMidnight(), ToDoID = (int)toDoID };
         }
 
         public ActionResult MoveDueToDosToLastPriority()
         {
-            MoveDueToDosToLastPriority(new LoggedInUserFinder().GetUserName(), DateTime.Today);
+            string userName = new LoggedInUserFinder().GetUserName();
+            DateTime todaysDate = new DateSelector().GetTodaysDateInAustraliaAtMidnight();
+            MoveDueToDosToLastPriority(userName, todaysDate);
             return RedirectToAction(nameof(ToDoController.Index), nameof(ToDo));
         }
 
