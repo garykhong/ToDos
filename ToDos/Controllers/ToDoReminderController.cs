@@ -76,6 +76,12 @@ namespace ToDos.Controllers
                 {
                     new ToDoUpdater().MoveToDoDownToLastInPriorityByToDo(toDoDueToday.ID, toDoDueToday.UserName);
                 }
+
+                foreach(ToDoReminder toDoReminder in new ToDoReminderSelector().GetToDoRemindersDueToday(userName, todaysDate))
+                {
+                    toDoReminder.FirstReminderDate = new ToDoReminderSelector().GetNextReminderDueDate(todaysDate, toDoReminder.FrequencyType);
+                    new ToDoReminderUpdater().UpdateToDoReminder(toDoReminder);
+                }
             }
         }
 

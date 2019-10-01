@@ -1,8 +1,5 @@
 ﻿using ToDos.Models;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System;
-using System.Data.Entity.Infrastructure;
 
 namespace ToDos.Tests.Controllers
 {
@@ -51,6 +48,11 @@ namespace ToDos.Tests.Controllers
         }
 
         public override void SetToDoEntryState(ToDo toDo)
+        {
+            fakeToDoEntryState = EntityState.Modified;
+        }
+
+        public override void SetToDoReminderEntryState(ToDoReminder toDoReminder)
         {
             fakeToDoEntryState = EntityState.Modified;
         }
