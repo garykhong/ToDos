@@ -62,6 +62,11 @@ namespace ToDos.Rules
             return nextReminderDueDate;
         }
 
+        public ICollection<ToDoReminder> GetToDoReminders(int ID)
+        {
+            return ToDoDBContextFactory.Create().ToDoReminders.Where(toDoReminder => toDoReminder.ToDoID == ID).ToList();
+        }
+
         private List<ToDoReminder> GetToReminders(string userName)
         {
             List<ToDoReminder> toDoReminders = new List<ToDoReminder>();

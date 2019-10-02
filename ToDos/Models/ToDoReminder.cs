@@ -30,7 +30,7 @@ namespace ToDos.Models
         {
             get
             {
-                if (toDo.ID == 0 && ToDoID > 0)
+                if (toDo != null && toDo.ID == 0 && ToDoID > 0)
                     return new ToDoSelector().GetToDoByLoggedInUserName(ToDoID);
 
                 return toDo;

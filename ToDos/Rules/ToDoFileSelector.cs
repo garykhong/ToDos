@@ -44,5 +44,10 @@ namespace ToDos.Rules
 
             return toDoFile;
         }
+
+        public ICollection<ToDoFile> GetToDoFiles(int ID)
+        {
+            return ToDoDBContextFactory.Create().ToDoFiles.Where(toDoFile => toDoFile.ToDoID == ID).ToList();
+        }
     }
 }

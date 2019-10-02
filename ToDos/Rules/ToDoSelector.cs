@@ -61,10 +61,8 @@ namespace ToDos.Rules
                 throw new Exception(UserIsNotAllowedToViewThisToDo);
             }
 
-            if (toDo.ToDoFiles == null)
-            {
-                toDo.ToDoFiles = new List<ToDoFile>();
-            }            
+            toDo.ToDoReminders = new ToDoReminderSelector().GetToDoReminders(toDo.ID);
+            toDo.ToDoFiles = new ToDoFileSelector().GetToDoFiles(toDo.ID);
 
             return toDo;            
         }
