@@ -28,10 +28,16 @@ namespace ToDos.Controllers
 
         public ViewResult Index()
         {
+            string userName = loggedInUserFinder.GetUserName();            
+            return View(nameof(Index), new ToDoSelector().GetSortedToDosByLoggedInUserName(userName));
+        }
+
+        public ViewResult GetToDosAfterUpdatingReminders()
+        {
             string userName = loggedInUserFinder.GetUserName();
             new ToDoReminderController().MoveDueToDosToLastPriority();
             return View(nameof(Index), new ToDoSelector().GetSortedToDosByLoggedInUserName(userName));
-        }        
+        }
 
         public ViewResult FilterByWhatToDo(string whatToDoContainsThis)
         {

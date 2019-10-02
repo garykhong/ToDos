@@ -5,7 +5,14 @@
     ViewBag.Title = "All To Dos";
 }
 
-@Html.ActionLink("Create New", "Create")
+@using (Html.BeginForm("GetToDosAfterUpdatingReminders", "ToDo", FormMethod.Get))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create") |
+        <input type="submit" value="Refresh reminders" class="ButtonAsLink" />
+    </p>
+}
+
 
 @using (Html.BeginForm("FilterByWhatToDo", "ToDo", FormMethod.Get))
 {
