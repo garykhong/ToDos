@@ -5,7 +5,7 @@ using ToDos.Models;
 
 namespace ToDos.Rules
 {
-    internal class ToDoReminderSelector
+    public class ToDoReminderSelector
     {
         private const string unknownToDoReminderFrequencyType = "Unknown to do reminder frequency type";
 
