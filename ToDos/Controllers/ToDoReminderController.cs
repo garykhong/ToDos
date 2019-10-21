@@ -107,7 +107,7 @@ namespace ToDos.Controllers
         public ActionResult Delete(int toDoReminderID)
         {
             ToDo toDoThatReminderBelongsTo = GetToDoByLoggedInUserName(toDoReminderID);
-            new ToDoReminderDeletor().DeleteToDoReminder(toDoReminderID);
+            new ToDoReminderDeletor().DeleteToDoReminder(toDoReminderID, toDoThatReminderBelongsTo);
             return Index(toDoThatReminderBelongsTo);
         }
 

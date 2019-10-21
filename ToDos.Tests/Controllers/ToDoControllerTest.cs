@@ -13,10 +13,8 @@ namespace ToDos.Tests.Controllers
     public class ToDoControllerTest
     {
         private FakeToDoDBContext fakeToDoDBContext = new FakeToDoDBContext();
-        private ViewResult toDoDetailsResult;
         private int toDoID;
         private ToDo toDo;
-        private string expectedWhatToDo;
         private ToDoController controller;
         private ViewResult toDoIndexResult;
         private ActionResult toDoCreateResult;

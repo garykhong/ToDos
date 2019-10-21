@@ -24,21 +24,11 @@ namespace ToDos.Models
         [Display(Name = "Is Active")]
         public bool IsActive { get; set; }
 
-        private ToDo toDo = new ToDo();
+        
         [ForeignKey("ToDoID")]
         public virtual ToDo ToDo
         {
-            get
-            {
-                if (toDo != null && toDo.ID == 0 && ToDoID > 0)
-                    return new ToDoSelector().GetToDoByLoggedInUserName(ToDoID);
-
-                return toDo;
-            }
-            set
-            {
-                toDo = value;
-            }
+            get; set;
         }
     }
 }

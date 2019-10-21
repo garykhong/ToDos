@@ -13,6 +13,8 @@ namespace ToDos.Rules
         {
             ToDo toDoToBeDeleted = ToDoDBContextFactory.Create().
                 ToDos.Where(toDo => toDo.ID == id).FirstOrDefault();
+            new ToDoReminderDeletor().DeleteToDoReminders(toDoToBeDeleted);
+            new ToDoFileDeletor().DeleteToDoFiles(toDoToBeDeleted);
             ToDoDBContextFactory.Create().ToDos.Remove(toDoToBeDeleted);
             ToDoDBContextFactory.Create().SaveChanges();
         }

@@ -16,6 +16,14 @@ namespace ToDos.Rules
             DeleteToDoFile(toDoFileID, toDoFile.ToDoID, userName);
         }
 
+        public void DeleteToDoFiles(ToDo toDo)
+        {
+            foreach(ToDoFile toDoFile in new ToDoFileSelector().GetToDoFiles(toDo.ID))
+            {
+                DeleteToDoFile(toDoFile.ID, toDo.ID, toDo.UserName);
+            }
+        }
+
         public void DeleteToDoFile(int toDoFileID, int toDoID, string userName)
         {
             ToDo toDoThatIsSaved = new ToDoSelector().GetToDo(toDoID, userName);

@@ -85,5 +85,13 @@ namespace ToDos.Rules
         {
             return ToDoDBContextFactory.Create().ToDoReminders.Where(toDoReminder => toDoReminder.ID == toDoReminderID).FirstOrDefault();
         }
+
+        public ToDoReminder GetToDoReminder(ToDo toDoThatIsSaved, int toDoReminderID)
+        {
+            ToDoReminder toDoReminder = toDoThatIsSaved.ToDoReminders.
+                                               Where(toDoFileThatIsSaved => toDoFileThatIsSaved.ID == toDoReminderID).
+                                                 FirstOrDefault();
+            return toDoReminder;
+        }
     }
 }
