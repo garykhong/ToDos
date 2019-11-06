@@ -18,11 +18,20 @@ namespace ToDos.Models
 
         public ToDoDBContext()
         {
-            string toDoDBContextConnectionString = new ConnectionStringSelector().GetToDoDBContextConnectionString();
-            if(toDoDBContextConnectionString != string.Empty)
+            string toDoDBContextConnectionString = GetToDoDBContextConnectionString();
+            if (toDoDBContextConnectionString != string.Empty)
                 base.Database.Connection.ConnectionString = new ConnectionStringSelector().GetToDoDBContextConnectionString();
         }
-       
+
+        private string GetToDoDBContextConnectionString()
+        {
+            if (Type.GetType("WebConfigurationManager") == null)
+            {
+                return string.Empty;
+            }
+            return new ConnectionStringSelector().GetToDoDBContextConnectionString();
+        }
+
         public virtual void SetToDoEntryState(ToDo toDo)
         {
             this.Set<ToDo>().AddOrUpdate(toDo);
