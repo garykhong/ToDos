@@ -310,6 +310,10 @@
     <Compile Include="Views\HtmlExtensions\TextAreaLineBreakDisplayer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ToDos.mdf" />
+    <Content Include="App_Data\ToDos_log.ldf">
+      <DependentUpon>ToDos.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
@@ -1445,7 +1449,6 @@
     <Content Include="Views\ToDoFile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\ToDoOrderUpdater\" />
   </ItemGroup>
   <ItemGroup>

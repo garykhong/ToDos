@@ -41,12 +41,15 @@ namespace ToDos.Rules
 
         public void MoveToDoDownToLastInPriorityByToDo(int toDoID, string userName)
         {
-            ToDoSelector toDoSelector = new ToDoSelector();
-            ToDo toDo = toDoSelector.GetToDo(toDoID, userName);
-            if (new ToDoUpdater().IsToDoSwappable(toDo))
+            if(toDoID > 0)
             {
-                toDo.OrderID = new ToDoSelector().GetMaxPlusOneToDoOrderID(toDo.UserName);
-                new ToDoUpdater().UpdateToDo(toDo);
+                ToDoSelector toDoSelector = new ToDoSelector();
+                ToDo toDo = toDoSelector.GetToDo(toDoID, userName);
+                if (new ToDoUpdater().IsToDoSwappable(toDo))
+                {
+                    toDo.OrderID = new ToDoSelector().GetMaxPlusOneToDoOrderID(toDo.UserName);
+                    new ToDoUpdater().UpdateToDo(toDo);
+                }
             }
         }
     }
